@@ -1,192 +1,169 @@
 import React, { useState } from 'react';
-import './styles/registro.css';  // Asegúrate de que el CSS esté en esta ruta
+import { useNavigate } from 'react-router-dom';
+import './styles/registro.css';
+
+import api from '../src/services/api';
 
 const Registro = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    edad: '',
-    genero: '',
-    documento: '',
-    programa: '',
-    ficha: '',
-    jornada: '',
-    centro: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+  const [formulario, setFormulario] = useState({
+    IdentificacionUsuario: '',
+    Nombre: '',
+    Apellido: '',
+    Correo: '',
+    Telefono: '',
+    Contrasena: '',
+    FechaRegistro: new Date().toISOString().split('T')[0],
   });
 
-  const manejarCambio = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const [mensaje, setMensaje] = useState('');
+  const [tipoMensaje, setTipoMensaje] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormulario({ ...formulario, [e.target.name]: e.target.value });
   };
 
-  const manejarEnvio = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar los datos al backend
-    console.log(formData);
+
+    try {
+      // Registrar usuario
+      const response = await api.post('/usuario', formulario);
+
+      setMensaje('✅ Registro exitoso. Se ha enviado un token de verificación.');
+      setTipoMensaje('exito');
+
+      // Opcional: guardar el correo para usarlo en la verificación
+      localStorage.setItem('correoParaVerificar', formulario.Correo);
+
+      // Redirige a la página para ingresar el token
+      setTimeout(() => navigate('/verificar-token'), 2000);
+    } catch (error) {
+      console.error('Error al registrar:', error);
+      setMensaje('❌ Error al registrar. Verifica los campos');
+      setTipoMensaje('error');
+    }
   };
 
   return (
-    <div className="contenedor-horizontalUnico" id='body-registro'>
-      <div className="columna-formularioUnico">
-        <h2>Datos Personales</h2>
-        
-        <div className="grupo-campoUnico">
-          <input
-            type="text"
-            id="nombreUnico"
-            name="nombre"
-            value={formData.nombre}
-            onChange={manejarCambio}
-            required
-          />
-          <label htmlFor="nombreUnico">Nombre completo</label>
-        </div>
-        
-        <div className="grupo-campoUnico">
-          <input
-            type="number"
-            id="edadUnico"
-            name="edad"
-            value={formData.edad}
-            onChange={manejarCambio}
-            required
-            min="14"
-            max="60"
-          />
-          <label htmlFor="edadUnico">Edad</label>
-        </div>
-        
-        <div className="grupo-campoUnico">
-          <select
-            id="generoUnico"
-            name="genero"
-            value={formData.genero}
-            onChange={manejarCambio}
-            required
-          >
-            <option value="" selected disabled></option>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
-          </select>
-          <label htmlFor="generoUnico">Género</label>
-        </div>
-        
-        <div className="grupo-campoUnico">
-          <input
-            type="number"
-            id="documentoUnico"
-            name="documento"
-            value={formData.documento}
-            onChange={manejarCambio}
-            required
-          />
-          <label htmlFor="documentoUnico">Documento</label>
-        </div>
+    <div className="contenedorUnico" id="body-inicio-sesion">
+      <div className="logoUnico">
+        <br />
+     
       </div>
-      
-      <div className="columna-formularioUnico">
-        <h2>Programa de Formación</h2>
-        
-        <div className="grupo-campoUnico">
-          <select
-            id="programaUnico"
-            name="programa"
-            value={formData.programa}
-            onChange={manejarCambio}
-            required
-          >
-            <option value="" selected disabled></option>
-            <option value="software">Desarrollo de Software</option>
-            <option value="adsi">ADSI</option>
-            <option value="multimedia">Multimedia</option>
-          </select>
-          <label htmlFor="programaUnico">Programa</label>
-        </div>
-        
-        <div className="grupo-campoUnico">
-          <input
-            type="number"
-            id="fichaUnico"
-            name="ficha"
-            value={formData.ficha}
-            onChange={manejarCambio}
-            required
-          />
-          <label htmlFor="fichaUnico">Número de ficha</label>
-        </div>
-        
-        <div className="grupo-campoUnico">
+      <br /><br />
+      <h2 className="tituloUnico registro-activsena">Regístrate en ActivSena</h2>
+
+      <form className="formularioUnico" onSubmit={handleSubmit}>
+        <div className="usuarioUnico">
           <input
             type="text"
-            id="jornadaUnico"
-            name="jornada"
-            value={formData.jornada}
-            onChange={manejarCambio}
+            name="IdentificacionUsuario"
+            className="campoInputUnico"
             required
+            value={formulario.IdentificacionUsuario}
+            onChange={handleChange}
           />
-          <label htmlFor="jornadaUnico">Jornada (mañana/tarde/noche)</label>
+          <label className="labelInputUnico">Identificación</label>
         </div>
-        
-        <div className="grupo-campoUnico">
+
+        <div className="usuarioUnico">
           <input
             type="text"
-            id="centroUnico"
-            name="centro"
-            value={formData.centro}
-            onChange={manejarCambio}
+            name="Nombre"
+            className="campoInputUnico"
             required
+            value={formulario.Nombre}
+            onChange={handleChange}
           />
-          <label htmlFor="centroUnico">Centro de formación</label>
+          <label className="labelInputUnico">Nombre</label>
         </div>
-      </div>
-      
-      <div className="columna-formularioUnico">
-        <h2>Credenciales</h2>
-        
-        <div className="grupo-campoUnico">
+
+        <div className="usuarioUnico">
+          <input
+            type="text"
+            name="Apellido"
+            className="campoInputUnico"
+            required
+            value={formulario.Apellido}
+            onChange={handleChange}
+          />
+          <label className="labelInputUnico">Apellido</label>
+        </div>
+
+        <div className="usuarioUnico">
           <input
             type="email"
-            id="emailUnico"
-            name="email"
-            value={formData.email}
-            onChange={manejarCambio}
+            name="Correo"
+            className="campoInputUnico"
             required
+            value={formulario.Correo}
+            onChange={handleChange}
           />
-          <label htmlFor="emailUnico">Correo electrónico</label>
+          <label className="labelInputUnico">Correo</label>
         </div>
-        
-        <div className="grupo-campoUnico">
+
+        <div className="usuarioUnico">
+          <input
+            type="tel"
+            name="Telefono"
+            className="campoInputUnico"
+            required
+            value={formulario.Telefono}
+            onChange={handleChange}
+          />
+          <label className="labelInputUnico">Teléfono</label>
+        </div>
+
+        <div className="usuarioUnico">
           <input
             type="password"
-            id="passwordUnico"
-            name="password"
-            value={formData.password}
-            onChange={manejarCambio}
+            name="Contrasena"
+            className="campoInputUnico"
             required
+            value={formulario.Contrasena}
+            onChange={handleChange}
           />
-          <label htmlFor="passwordUnico">Contraseña</label>
+          <label className="labelInputUnico contrasena-registro">Contraseña</label>
         </div>
-        
-        <div className="grupo-campoUnico">
+
+        <div className="usuarioUnico">
           <input
-            type="password"
-            id="confirm_passwordUnico"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={manejarCambio}
+            type="date"
+            name="FechaRegistro"
+            className="campoInputUnico"
             required
+            value={formulario.FechaRegistro}
+            onChange={handleChange}
           />
-          <label htmlFor="confirm_passwordUnico">Confirmar contraseña</label>
+          <label className="labelInputUnico fecha-registro">Fecha de Registro</label>
         </div>
-        
-        <button type="submit" className="boton-registroUnico" onClick={manejarEnvio}>
-          Completar Registro
+
+        <button type="submit" className="btnLoginUnicor">
+          <span></span><span></span><span></span><span></span>
+          Registrarse
         </button>
-        
-        <p className="enlace-loginUnico">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+      </form>
+
+      {mensaje && (
+        <p
+          className={tipoMensaje === 'exito' ? 'mensaje-exito' : 'mensaje-error'}
+          style={{ textAlign: 'center', marginTop: '1rem' }}
+        >
+          {mensaje}
+        </p>
+      )}
+
+      <br />
+
+      <div className="registroUnico">
+        <p className="textoRegistroUnico">
+          ¿Ya tienes cuenta?{' '}
+          <a href="/iniciosesion" className="enlaceRegistroUnico">
+            Inicia sesión
+          </a>
+        </p>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const InicioSesion = () => {
         <img src={perfilImg} alt="Logo" className="logo-login" />
       </div>
       <br /><br />
-      <h2 className="tituloUnico">Bienvenido a ActivSena</h2>
+      <h2 className="tituloUnico activsena-texto">Bienvenido a ActivSena</h2>
 
       <form className="formularioUnico" onSubmit={manejarInicioSesion}>
         <div className="usuarioUnico">
@@ -112,7 +112,7 @@ const InicioSesion = () => {
       <div className="registroUnico">
         <p className="textoRegistroUnico">
           ¿No tienes cuenta?{' '}
-          <a href="#registro" className="enlaceRegistroUnico">
+          <a href="/registro" className="enlaceRegistroUnico">
             Regístrate aquí
           </a>
         </p>

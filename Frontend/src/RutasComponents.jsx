@@ -8,6 +8,7 @@ import InicioSesion from '../public/InicioSesion'
 import Registro from '../public/Registro'
 import Actividades from './pages/Actividades/Actividades'
 import Agenda from "./pages/Agenda/Agenda"
+import VerificarToken from '../public/VerificarToken';
 export default function RutasComponents() {
   return (
     <>
@@ -16,6 +17,10 @@ export default function RutasComponents() {
             <Route path='/' element={<HomePage></HomePage>} />
             <Route path='/iniciosesion' element={<InicioSesion />} />
             <Route path='/registro' element={<Registro />} />
+          
+
+            <Route path="/verificar-token" element={<VerificarToken />} />
+
             <Route path='/dash' element={<DashBoard/>}/>
             <Route path='/dashap' element={<DashBoardAp/>}/>
             <Route path='/dashin' element={<DashBoardIn/>}/>

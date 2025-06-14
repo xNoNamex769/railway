@@ -150,3 +150,186 @@ select option {
         margin-bottom: 20px;
     }
 }
+
+
+/* Fondo general */
+#body-registro {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Contenedor principal */
+.contenedor-horizontalUnico {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(10, 10, 10, 0.8);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 30px;
+    overflow: hidden;
+    border: 1px solid #03e9f4;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+}
+
+/* Columnas del formulario */
+.columna-formularioUnico {
+    flex: 1;
+    padding: 30px;
+    border-right: 2px dashed #03e9f4;
+}
+
+.columna-formularioUnico:last-child {
+    border-right: none;
+}
+
+/* Título */
+h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 1.6em;
+    margin-bottom: 35px;
+    text-shadow: 0 0 10px #03e9f4;
+}
+
+/* Grupo de campos */
+.grupo-campoUnico {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.grupo-campoUnico input,
+.grupo-campoUnico select {
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 15px;
+    color: #fff;
+    background: transparent;
+    border: 1px solid #03e9f4;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.grupo-campoUnico input:focus,
+.grupo-campoUnico select:focus {
+    box-shadow: 0 0 10px #03e9f4;
+}
+
+.grupo-campoUnico label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #0f2027;
+    padding: 0 5px;
+    font-size: 13px;
+    color: #03e9f4;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* Botón */
+.boton-registroUnico {
+    display: inline-block;
+    padding: 12px 25px;
+    color: #03e9f4;
+    background: transparent;
+    border: 2px solid #03e9f4;
+    border-radius: 8px;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 20px auto;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.boton-registroUnico:hover {
+    background: #03e9f4;
+    color: #000;
+    box-shadow: 0 0 20px #03e9f4;
+}
+
+.boton-registroUnico::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 233, 244, 0.2);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.boton-registroUnico:hover::before {
+    left: 0;
+}
+
+/* Enlace de login */
+.enlace-loginUnico {
+    text-align: center;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.enlace-loginUnico a {
+    color: #03e9f4;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.enlace-loginUnico a:hover {
+    text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .contenedor-horizontalUnico {
+        flex-direction: column;
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .columna-formularioUnico {
+        border-right: none;
+        border-bottom: 2px dashed #03e9f4;
+    }
+
+    .columna-formularioUnico:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fecha-registro{
+    margin-top: 40px;
+}
+.contrasena-registro{
+    margin-top: 10px;
+}
+
+.registro-activsena{
+    margin-top: 100px;
+}
