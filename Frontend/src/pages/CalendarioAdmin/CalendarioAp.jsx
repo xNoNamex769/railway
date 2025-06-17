@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import './style/Calendario.css';
-import fondo3 from './img/fondo3.jpg';
-import fondo4 from './img/fondo4.jpg';
-import perfil from './img/perfil.png';
+import React, { useState, useEffect } from "react";
+import { FaBell } from "react-icons/fa";
+
+import "./style/Calendario.css";
+import fondo3 from "./img/fondo3.jpg";
+import fondo4 from "./img/fondo4.jpg";
 
 const CalendarioAp = () => {
-  // Estados
   const [showNotifications, setShowNotifications] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState('Marzo 2023');
+  const [currentMonth, setCurrentMonth] = useState("Marzo 2023");
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [rejectionReason, setRejectionReason] = useState('');
+  const [rejectionReason, setRejectionReason] = useState("");
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalMessage, setModalMessage] = useState('');
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const [showRejectionInput, setShowRejectionInput] = useState(false);
+  const [clickedNotifications, setClickedNotifications] = useState([]);
 
-  // Datos de eventos
   const [events] = useState([
     {
       id: 1,
@@ -27,8 +27,9 @@ const CalendarioAp = () => {
       location: "Auditorio Principal",
       date: "28 de Marzo, 2023",
       time: "10:00 AM - 12:00 PM",
-      description: "Evento de inteligencia Artificial con charlas y actividades culturales.",
-      contact: "contacto@institutogenero.com"
+      description:
+        "Evento de inteligencia Artificial con charlas y actividades culturales.",
+      contact: "contacto@institutogenero.com",
     },
     {
       id: 2,
@@ -39,24 +40,22 @@ const CalendarioAp = () => {
       date: "15 de Marzo, 2023",
       time: "2:00 PM - 4:00 PM",
       description: "Conferencia sobre las últimas tendencias en tecnología.",
-      contact: "contacto@tecnologia.com"
-    }
+      contact: "contacto@tecnologia.com",
+    },
   ]);
 
   const calendarEvents = [
     { day: 8, title: "Día de la Mujer", eventId: 1 },
-    { day: 15, title: "Conferencia de Tecnología", eventId: 2 }
+    { day: 15, title: "Conferencia de Tecnología", eventId: 2 },
   ];
 
-  // Carrusel automático
   useEffect(() => {
     const interval = setInterval(() => {
       setPhotoIndex((prevIndex) => (prevIndex + 1) % events.length);
-    }, 5000); // Cambiado a 5 segundos para mejor experiencia
+    }, 5000);
     return () => clearInterval(interval);
   }, [events.length]);
 
-  // Funciones de manejo de eventos
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
@@ -67,55 +66,69 @@ const CalendarioAp = () => {
   };
 
   const handleApprove = () => {
-    setModalTitle('Evento Aprobado');
-    setModalMessage('El evento ha sido aprobado exitosamente.');
+    setModalTitle("Evento Aprobado");
+    setModalMessage("El evento ha sido aprobado exitosamente.");
     setShowRejectionInput(false);
     setShowModal(true);
     setShowInfoModal(false);
   };
 
   const handleReject = () => {
-    setModalTitle('Evento Rechazado');
-    setModalMessage('Especifica el motivo del rechazo:');
+    setModalTitle("Evento Rechazado");
+    setModalMessage("Especifica el motivo del rechazo:");
     setShowRejectionInput(true);
     setShowModal(true);
   };
 
   const handleModalAction = () => {
-    if (modalTitle === 'Evento Rechazado' && rejectionReason.trim() === '') {
-      alert('Por favor, especifica el motivo del rechazo.');
+    if (modalTitle === "Evento Rechazado" && rejectionReason.trim() === "") {
+      alert("Por favor, especifica el motivo del rechazo.");
       return;
     }
-    
-    alert(modalTitle === 'Evento Aprobado' 
-      ? 'Evento aprobado exitosamente.' 
-      : `Evento rechazado. Motivo: ${rejectionReason}`);
-    
+
+    alert(
+      modalTitle === "Evento Aprobado"
+        ? "Evento aprobado exitosamente."
+        : `Evento rechazado. Motivo: ${rejectionReason}`
+    );
+
     setShowModal(false);
-    setRejectionReason('');
+    setRejectionReason("");
+  };
+
+  const handleNotificationClick = (eventId) => {
+    setClickedNotifications((prev) =>
+      prev.includes(eventId)
+        ? prev.filter((id) => id !== eventId)
+        : [...prev, eventId]
+    );
   };
 
   const renderCalendarDays = () => {
     const days = [];
-    
-    // Días vacíos al inicio (para marzo 2023 que comienza en miércoles)
     days.push(<div key="empty-1" className="dia-vacio"></div>);
     days.push(<div key="empty-2" className="dia-vacio"></div>);
-    
-    // Días del mes
+
     for (let i = 1; i <= 31; i++) {
-      const event = calendarEvents.find(e => e.day === i);
-      
+      const event = calendarEvents.find((e) => e.day === i);
       if (event) {
-        const fullEvent = events.find(e => e.id === event.eventId);
+        const fullEvent = events.find((e) => e.id === event.eventId);
+        const isClicked = clickedNotifications.includes(fullEvent.id);
+
         days.push(
-          <div 
-            key={`day-${i}`} 
-            className="dia evento"
-            onClick={() => openEventModal(fullEvent)}
-          >
-            <span className="dia-numero">{i}</span>
-            <span className="nombre-evento">{event.title}</span>
+          <div key={`day-${i}`} className="dia evento">
+            <div
+              onClick={() => openEventModal(fullEvent)}
+              className="dia-clickable"
+            >
+              <span className="dia-numero">{i}</span>
+              <span className="nombre-evento">{event.title}</span>
+            </div>
+            <FaBell
+              className={`noti-icon ${isClicked ? "clicked" : ""}`}
+              onClick={() => handleNotificationClick(fullEvent.id)}
+              title="Notificación"
+            />
           </div>
         );
       } else {
@@ -126,7 +139,7 @@ const CalendarioAp = () => {
         );
       }
     }
-    
+
     return days;
   };
 
@@ -134,49 +147,10 @@ const CalendarioAp = () => {
     <div className="admin-container">
       <main className="main-content">
         <header className="app-header">
-          <h1 className="app-title">Calendario Del Aprendiz <span className="sena-text">SENA</span></h1>
-          
-          <button 
-            className={`notifications-btn ${showNotifications ? 'active' : ''}`}
-            onClick={toggleNotifications}
-          >
-            <i className="bell-icon">🔔</i>
-            <span className="notification-badge">{events.length}</span>
-          </button>
-          
-          {showNotifications && (
-            <div className="notifications-panel">
-              <div className="notifications-header">
-                <h2>Notificaciones</h2>
-                <button 
-                  className="close-notifications"
-                  onClick={toggleNotifications}
-                >
-                  &times;
-                </button>
-              </div>
-              <div className="notifications-list">
-                {events.map(event => (
-                  <div 
-                    key={event.id} 
-                    className="notification-item"
-                    onClick={() => {
-                      openEventModal(event);
-                      setShowNotifications(false);
-                    }}
-                  >
-                    <img src={event.image} alt={event.title} className="notification-img" />
-                    <div className="notification-content">
-                      <h3>{event.title}</h3>
-                      <p>{event.date} - {event.time}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <h1 className="app-title">
+            Calendario Del Aprendiz <span className="sena-text">SENA</span>
+          </h1>
         </header>
-
 
         <section className="calendar-section">
           <h2 className="section-title">Calendario de Eventos</h2>
@@ -188,18 +162,17 @@ const CalendarioAp = () => {
             </div>
 
             <div className="calendar-grid">
-              {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(day => (
-                <div key={day} className="week-day">{day}</div>
+              {["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map((day) => (
+                <div key={day} className="week-day">
+                  {day}
+                </div>
               ))}
               {renderCalendarDays()}
             </div>
-
-            
           </div>
         </section>
       </main>
 
-      {/* Modal de aprobación/rechazo */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-container">
@@ -208,7 +181,7 @@ const CalendarioAp = () => {
             </button>
             <h2 className="modal-title">{modalTitle}</h2>
             <p className="modal-message">{modalMessage}</p>
-            
+
             {showRejectionInput && (
               <textarea
                 value={rejectionReason}
@@ -217,12 +190,9 @@ const CalendarioAp = () => {
                 className="rejection-textarea"
               />
             )}
-            
+
             <div className="modal-actions">
-              <button 
-                className="modal-confirm-btn"
-                onClick={handleModalAction}
-              >
+              <button className="modal-confirm-btn" onClick={handleModalAction}>
                 Confirmar
               </button>
             </div>
@@ -230,28 +200,24 @@ const CalendarioAp = () => {
         </div>
       )}
 
-      {/* Modal de información del evento */}
       {showInfoModal && selectedEvent && (
         <div className="modal-overlay">
           <div className="event-modal-container">
-            <button 
-              className="modal-close" 
+            <button
+              className="modal-close"
               onClick={() => setShowInfoModal(false)}
             >
               &times;
             </button>
-            
             <div className="event-modal-header">
               <h2 className="event-modal-title">{selectedEvent.title}</h2>
             </div>
-            
             <div className="event-modal-content">
-              <img 
-                src={selectedEvent.image} 
-                alt={selectedEvent.title} 
+              <img
+                src={selectedEvent.image}
+                alt={selectedEvent.title}
                 className="event-modal-image"
               />
-              
               <div className="event-details">
                 <div className="event-detail">
                   <span className="detail-label">Fecha:</span>
@@ -267,7 +233,9 @@ const CalendarioAp = () => {
                 </div>
                 <div className="event-detail">
                   <span className="detail-label">Solicitante:</span>
-                  <span className="detail-value">{selectedEvent.applicant}</span>
+                  <span className="detail-value">
+                    {selectedEvent.applicant}
+                  </span>
                 </div>
                 <div className="event-detail">
                   <span className="detail-label">Contacto:</span>
@@ -278,8 +246,6 @@ const CalendarioAp = () => {
                 </div>
               </div>
             </div>
-            
-        
           </div>
         </div>
       )}
