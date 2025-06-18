@@ -192,27 +192,28 @@
 }
 
 .nombredash {
-  
-  
-  /*Navbar*/
   font-size: 14px;
   font-weight: bold;
   color: #333;
-  margin-left: 30px;
-  
+  margin-left: 0; /* antes era 30px, ahora lo eliminamos */
+  flex: 1;
+   /* para que ocupe el espacio disponible entre la imagen y el botón */
 }
 
+
 .Clogodash {
-border-radius: 30px;
-   background-color: #3ddf3d;
+  border-radius: 30px;
+  background-color: #3ddf3d;
   display: flex;
   align-items: center;
-  padding: 10px;
-  gap: 4px;
-  width: 200px;
-margin-right: 2px;
-  
+  justify-content: space-between;
+  padding: 10px 15px;
+  gap: 10px;
+  width: 100%;
+  max-width: 250px;
+  box-sizing: border-box;
 }
+
 
 .logodash {
   /*Navbar*/
@@ -417,4 +418,106 @@ margin-right: 00px;
 
 .menudesplegabledash li:hover {
   background-color: #f0f0f0;
+}
+
+.Clogodash {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #32CD32, #00C853);
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 230px;
+  position: relative;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 128, 0, 0.2);
+}
+
+.avatardash {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.nombredash {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.subirdash {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.subirdash:hover {
+  transform: scale(1.2);
+}
+.Clogodash {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.UserHeaderInfo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.avatardash {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nombredash {
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.subirdash {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.subirdash:hover {
+  transform: scale(1.2);
+}
+
+.opcionesm{
+
+  color: black;
+
 }
