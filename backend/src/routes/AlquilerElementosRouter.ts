@@ -7,6 +7,7 @@ import {
   validateIdAlquilerYaExiste,
    validateIdUsuario
 } from '../middleware/AlquilerElementos';
+import { verificarToken } from '../middleware/VerificarToken'; 
 import { AlquilerElementosControllers } from '../controllers/AlquilerElementoControllers';
 
 const router = Router();
@@ -54,5 +55,9 @@ router.get(
   handleInputErrors,
   AlquilerElementosControllers.getAlquileresPorUsuario
 );
-
+router.post(
+  '/desde-qr',
+  verificarToken, // <-- extrae el IdUsuario desde el token
+  AlquilerElementosControllers.registrarDesdeQR
+);
 export default router;
