@@ -571,3 +571,24 @@
       right: 5%;
     }
   }
+
+
+  .dia-clickable {
+    cursor: pointer;
+    flex: 1;
+  }
+  
+  .noti-icon {
+    font-size: 1.1rem;
+    margin-top: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s ease;
+    color: var(--accent-color); /* rojo o el que uses */
+  }
+  
+  .noti-icon.clicked {
+    color: var(--success-color); /* verde al hacer clic */
+  }
+  
+  

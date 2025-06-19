@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaCalendarAlt,
   FaDiscourse,
@@ -14,16 +14,32 @@ import {
   FaGamepad,
 } from "react-icons/fa";
 
+
 import logo from "../img/logo.png";
 import { FaQrcode } from "react-icons/fa";
 
+=======
+import avatar from "../img/avatar.png";
+
 import "../DashAp/GlassIcons/style/GlassIcons.css";
 
-export default function MenuLateral({
-  menuAbierto,
-  toggleMenu,
-  setContenidoActual,
-}) {
+export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
+  const [mostrarMenu, setMostrarMenu] = useState(false);
+
+  const toggleDropdown = () => {
+    setMostrarMenu(prev => !prev);
+  };
+
+  const irAPerfil = () => {
+    setContenidoActual("perfil");
+    setMostrarMenu(false);
+  };
+
+  const irConfig = () => {
+    setContenidoActual("config");
+    setMostrarMenu(false);
+  };
+
   const gradientMapping = {
     blue: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
     purple: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
@@ -41,7 +57,7 @@ export default function MenuLateral({
     { key: "horasl", icon: <FaStopwatch />, label: "Horas Lúdicas", color: "orange" },
     { key: "combinar", icon: <FaDiscourse />, label: "Feedback", color: "green" },
     { key: "constanciacr", icon: <FaUserGraduate />, label: "Constancia", color: "blue" },
-    { key: "alquilerap", icon: <FaGamepad />, label: "Prestamos", color: "purple" },
+    { key: "alquilerap", icon: <FaGamepad />, label: "Préstamos", color: "purple" },
     { key: "calendario", icon: <FaCalendarAlt />, label: "Calendario", color: "red" },
     { key: "escanerqr", icon: <FaQrcode />, label: "Escanear QR", color: "orange" },
     { key: "cartacontacto", icon: <FaAddressBook />, label: "Contactos", color: "indigo" },
@@ -54,11 +70,23 @@ export default function MenuLateral({
   return (
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
       <section className="Clogodash">
-        <img src={logo} alt="Logodash" className="logodash" />
-        <h2 className="titulodash">Dashboard</h2>
-        <button className="iconodash subirdash" onClick={toggleMenu}>
+        <div className="UserHeaderInfo" onClick={toggleDropdown}>
+          <img src={avatar} alt="Usuario" className="avatardash" />
+          <span className="nombredash">Administrador</span>
+        </div>
+        <button className="subirdash" onClick={toggleMenu}>
           <FaTimes />
         </button>
+
+        {mostrarMenu && (
+          <div className="menudesplegabledash">
+            <ul>
+              <li className="opcionesm" onClick={irAPerfil}>Perfil</li>
+              <li className="opcionesm" onClick={irConfig}>Configuración</li>
+              <li className="opcionesm" >Cerrar sesión</li>
+            </ul>
+          </div>
+        )}
       </section>
 
       <nav className="menudash">

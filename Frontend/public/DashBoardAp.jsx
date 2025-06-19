@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MenuLateralAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/MenuLateralAp";
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
-import NavbarAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/NavbarAp";
+//import NavbarAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/NavbarAp";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
 import Ludicas from "../src/pages/Ludicas/Ludicas";
@@ -74,12 +74,14 @@ export default function DashBoard() {
       />
 
       <main className="contenidodash">
+
         <NavbarAp
           toggleMenu={() => setMenuAbierto(!menuAbierto)}
           setContenidoActual={setContenidoActual}
           cerrarSesion={cerrarSesion} // 👈 Prop clave para cerrar sesión
         />
 
+         
         {contenidoActual === "userviewap" && <UserViewAp />}
         {contenidoActual === "actividades" && <Actividades />}
         {contenidoActual === "aplicacion" && <Aplicacion />}
@@ -93,10 +95,11 @@ export default function DashBoard() {
         {contenidoActual === "alquilerap" && <AlquilerAP />}
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "constanciacr" && <Constanciacr />}
-        {contenidoActual === "perfil" && <UserViewAp />}
+        {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "config" && <ConfigViewAp />}
         {contenidoActual === "escanerqr" && <EscanerQR />}
         {contenidoActual === "calendario" && <CalendarioAp />}
+        {contenidoActual === "userview" && <UserViewAp setContenidoActual={setContenidoActual} />}
       </main>
 
       <ActivBot irAChatai={() => setContenidoActual("chatai")} />

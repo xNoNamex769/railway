@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MenuLateralIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/MenuLateralIn";
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
-import NavbarIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/NavbarIn";
+//import NavbarIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/NavbarIn";
 import CalendarioAdmin from "../src/pages/CalendarioAdmin/Calendario";
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
 import Planificar from "../src/pages/Planificar/Planificar";
@@ -15,11 +15,13 @@ import PlanificarEvento from "../src/pages/PlanificarEv/PlanificarEvento";
 import RegistroA from "../src/pages/RegistroAsistencia/RegistroA";
 import CartaContacto from "../src/pages/CartasContacto/CartaContacto";
 import ChromaGrid from "../src/Components/ChromaGrid/ChromaGrid";
-import ChatAI from '../src/pages/ChatAI/ChatAI';
+import ChatAI from "../src/pages/ChatAI/ChatAI";
 import UserViewIn from "../src/pages/UserView/UserViewIn";
 import ConfigViewIn from "../src/pages/ConfigView/ConfigViewIn";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
+
 import AsistenciasActividad from "../src/pages/Asistencia/Instructor/AsistenciasActividad";
+
 import ConfigViewAp from "../src/pages/ConfigView/ConfigViewAp";
 
 import "../src/styles/BotHp.css";
@@ -45,6 +47,7 @@ export default function DashBoard() {
       />
 
       <main className="contenidodash">
+
         <NavbarIn
           toggleMenu={toggleMenu}
           setContenidoActual={setContenidoActual}
@@ -57,6 +60,12 @@ export default function DashBoard() {
             setIdSeleccionada={setIdSeleccionada}
           />
         )}
+
+        {contenidoActual === "userviewin" && (
+          <UserViewIn setContenidoActual={setContenidoActual} />
+        )}
+        {contenidoActual === "actividades" && <Actividades />}
+
         {contenidoActual === "aplicacion" && <Aplicacion />}
         {contenidoActual === "plan" && <Planificar />}
         {contenidoActual === "registrarl" && <Registroludicas />}
@@ -69,11 +78,23 @@ export default function DashBoard() {
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "chromagrid" && <ChromaGrid />}
         {contenidoActual === "chatai" && <ChatAI />}
-        {contenidoActual === "perfil" && <UserViewIn />}
+        {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "config" && <ConfigViewIn />}
         {contenidoActual === "alquiler" && <Alquiler />}
+
         {contenidoActual === "asistenciasactividad" && (
           <AsistenciasActividad IdActividad={idSeleccionada} />
+
+        {contenidoActual === "planevento" && <div></div>}
+        {contenidoActual === "alquiler" && <div></div>}
+        {contenidoActual === "registrarl" && (
+          <div>
+            <h2>Solicitud de apoyo</h2>
+          </div>
+
+        )}
+        {contenidoActual === "userview" && (
+          <UserView setContenidoActual={setContenidoActual} />
         )}
       </main>
 
