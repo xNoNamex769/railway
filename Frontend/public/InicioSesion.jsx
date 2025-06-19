@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ← Importante
-import './styles/inicio.css';
-import perfilImg from './img/logo.png';
+import { useNavigate } from 'react-router-dom';
+import './styles/inicio.css'; // ✅ Correcto (desde /src)
+
 import api from '../src/services/api';
 
 const InicioSesion = () => {
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [mensaje, setMensaje] = useState('');
-  const [tipoMensaje, setTipoMensaje] = useState(''); // 'exito' o 'error'
+  const [tipoMensaje, setTipoMensaje] = useState('');
   const [esOlvidoContraseña, setEsOlvidoContraseña] = useState(false);
 
-  const navigate = useNavigate(); // ← Importante
+  const navigate = useNavigate();
 
   const manejarClickOlvidoContraseña = () => {
     setEsOlvidoContraseña(!esOlvidoContraseña);
@@ -27,14 +27,15 @@ const InicioSesion = () => {
       });
 
       const { token, usuario } = response.data;
+
+      console.log("🧠 Datos recibidos del backend:", response.data);
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("IdUsuario", usuario.IdUsuario);
+
       setMensaje('✅ Inicio de sesión exitoso');
       setTipoMensaje('exito');
-      console.log('Token:', token);
-      console.log('Usuario:', usuario);
 
-      localStorage.setItem('token', token);
-
-      // Redirige al dashboard
       navigate('/dashap');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -47,8 +48,10 @@ const InicioSesion = () => {
     <div className="contenedorUnico" id="body-inicio-sesion">
       <div className="logoUnico">
         <br />
-        <img src={perfilImg} alt="Logo" className="logo-login" />
+      
+   
       </div>
+
       <br /><br />
       <h2 className="tituloUnico activsena-texto">Bienvenido a ActivSena</h2>
 

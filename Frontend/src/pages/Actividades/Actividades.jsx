@@ -6,10 +6,10 @@ import fondo2Img from '../Alquiler/img/fondo2.jpg';
 import fondo3Img from '../Alquiler/img/fondo3.jpg';
 import fondo4Img from '../Alquiler/img/fondo4.jpg';
 import fondo5Img from '../Alquiler/img/fondo5.jpg';
-import fondo6Img from '../Alquiler/img/fondo6.jpg';
+
 import bienestar_aprendizImg from '../Alquiler/img/bienestar_aprendiz.webp';
 
-const imagenes = [fondo1Img, fondo2Img, fondo3Img, fondo4Img, fondo5Img, fondo6Img];
+const imagenes = [fondo1Img, fondo2Img, fondo3Img, fondo4Img, fondo5Img];
 
 export default function Actividades() {
   return (

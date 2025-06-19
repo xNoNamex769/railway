@@ -2,7 +2,7 @@
 	Installed from https://reactbits.dev/default/
 */
 
-import React,{ useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import {
   Renderer,
   Camera,
@@ -102,10 +102,10 @@ class Title {
     })
     this.mesh = new Mesh(this.gl, { geometry, program })
     const aspect = width / height
-    const textHeight = this.plane.scale.y * 0.10
+    const textHeight = this.plane.scale.y * 0.15
     const textWidth = textHeight * aspect
     this.mesh.scale.set(textWidth, textHeight, 1)
-    this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.1 - 0.01
+    this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05
     this.mesh.setParent(this.plane)
   }
 }
@@ -284,9 +284,9 @@ class Media {
         this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]
       }
     }
-    this.scale = this.screen.height / 800
-    this.plane.scale.y = (this.viewport.height * (400 * this.scale)) / this.screen.height
-    this.plane.scale.x = (this.viewport.width * (400 * this.scale)) / this.screen.width
+    this.scale = this.screen.height / 1500
+    this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height
+    this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width
     this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y]
     this.padding = 2
     this.width = this.plane.scale.x + this.padding
@@ -401,7 +401,7 @@ class App {
     this.camera.perspective({
       aspect: this.screen.width / this.screen.height
     })
-    const fov = (this.camera.fov * Math.PI) / 90
+    const fov = (this.camera.fov * Math.PI) / 180
     const height = 2 * Math.tan(fov / 2) * this.camera.position.z
     const width = height * this.camera.aspect
     this.viewport = { width, height }

@@ -1,5 +1,7 @@
 import type { Request , Response } from "express";
 import { Actividad } from "../models/Actividad";
+
+
 import { Evento } from "../models/Evento";  // Importar el modelo locas  el Evento para usar en include
 
 export class ActividadControllers {
@@ -98,4 +100,5 @@ export class ActividadControllers {
       res.status(500).json({ error: 'hubo un error' });
     }
   };
+
 }

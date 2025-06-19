@@ -8,7 +8,7 @@ import avatar from "../img/avatar.png";
 import Rotar from "../RotatingText/Rotar"
 
 
-export default function Navbar({ toggleMenu, setContenidoActual }) {
+export default function Navbar({ toggleMenu, setContenidoActual,cerrarSesion}) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
 
   const toggleDropdown = () => {
@@ -55,7 +55,8 @@ export default function Navbar({ toggleMenu, setContenidoActual }) {
               <ul>
                 <li onClick={irAPerfil}>Perfil</li>
                 <li onClick={irConfig}>Configuración</li>
-                <li>Cerrar sesión</li>
+                <li onClick={cerrarSesion}>Cerrar sesión</li>
+
               </ul>
             </div>
           )}

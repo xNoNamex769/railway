@@ -20,6 +20,7 @@ export const validateIdAsistencia = async (req: Request, res: Response, next: Ne
 // Valida si el QR de entrada de la asistencia ya existe
 export const validateIdAsistenciaYaExiste = async (req: Request, res: Response, next: NextFunction) => {
   await body('QREntrada')
+  .optional()
     .custom(async (value) => {
       const asistenciaExistente = await Asistencia.findOne({
         where: { QREntrada: value },
@@ -71,6 +72,11 @@ export const validateAsistenciaBody = async (req: Request, res: Response, next: 
     .notEmpty().withMessage('no se puede agregar la asistencia si no esta referenciada a dicha actividad')
     .isInt().withMessage('El campo "ID de Actividad" debe ser un número entero')
     .run(req);
+await body('tipo')
+  .optional()
+  .isIn(['entrada', 'salida'])
+  .withMessage('El tipo debe ser "entrada" o "salida"')
+  .run(req);
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

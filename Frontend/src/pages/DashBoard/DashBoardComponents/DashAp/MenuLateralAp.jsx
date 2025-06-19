@@ -8,12 +8,15 @@ import {
   FaRunning,
   FaUserGraduate,
   FaListAlt,
+  
   FaAddressBook,
   FaStopwatch,
   FaGamepad,
 } from "react-icons/fa";
 
 import logo from "../img/logo.png";
+import { FaQrcode } from "react-icons/fa";
+
 import "../DashAp/GlassIcons/style/GlassIcons.css";
 
 export default function MenuLateral({
@@ -40,6 +43,7 @@ export default function MenuLateral({
     { key: "constanciacr", icon: <FaUserGraduate />, label: "Constancia", color: "blue" },
     { key: "alquilerap", icon: <FaGamepad />, label: "Prestamos", color: "purple" },
     { key: "calendario", icon: <FaCalendarAlt />, label: "Calendario", color: "red" },
+    { key: "escanerqr", icon: <FaQrcode />, label: "Escanear QR", color: "orange" },
     { key: "cartacontacto", icon: <FaAddressBook />, label: "Contactos", color: "indigo" },
   ];
 

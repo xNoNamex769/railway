@@ -24,6 +24,7 @@
     "moment-timezone": "^0.5.48",
     "mysql2": "^3.14.0",
     "nodemailer": "^7.0.3",
+    "python-shell": "^5.0.0",
     "sequelize": "^6.37.7",
     "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7"

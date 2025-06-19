@@ -22,6 +22,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import "../src/styles/fondo.css";
+import AnalisisIA from "../src/pages/AnalisisIA/AnalisisIA";
 
 
 export default function DashBoard() {
@@ -50,7 +51,7 @@ export default function DashBoard() {
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "perfil" && <UserView />}
         {contenidoActual === "config" && <ConfigView />}
-
+        {contenidoActual === "analisisia" && <AnalisisIA/>}    
 
 
 
