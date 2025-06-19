@@ -9,6 +9,10 @@ import {
   FaUserGraduate,
 } from "react-icons/fa";
 
+import React from "react";
+
+
+
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
 
@@ -28,6 +32,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
     setContenidoActual("config");
     setMostrarMenu(false);
   };
+
 
   return (
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
@@ -86,6 +91,29 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           <FaUserGraduate className="iconodash" />
           ConstanciaAD
         </button>
+
+         <button
+          onClick={() => setContenidoActual("cartacontacto")}
+            className="opciondash"
+           >
+            <FaCalendarAlt className="iconodash" />
+           Contactos
+                </button>
+                 <button
+          onClick={() => setContenidoActual("cartacontacto")}
+            className="opciondash"
+           >
+            <FaCalendarAlt className="iconodash" />
+           Contactos
+                </button>
+                 <button
+          onClick={() => setContenidoActual("analisisia")}
+            className="opciondash"
+           >
+            <FaCalendarAlt className="iconodash" />
+           Analisisia
+                </button>
+
         <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
           <FaCalendarAlt className="iconodash" />
           Contactos

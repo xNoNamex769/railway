@@ -4,11 +4,8 @@
 import server from './server';
 import colors from 'colors'; 
 import { db } from './config/db';
-import getPort from 'get-port';
 
-
-
-const DEFAULT_PORT = 3001;
+const PORT = 3001;
 
 async function startServer() {
     try {
@@ -17,24 +14,20 @@ async function startServer() {
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
         // Sincroniza la base de datos
-   await db.sync();
+        await db.sync();
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
 
-        // Busca un puerto libre automáticamente, comenzando desde el puerto 3000
-        const freePort = await getPort({ port: DEFAULT_PORT });  // Usamos get-port para obtener un puerto libre
-
-        // Inicia el servidor en el puerto libre encontrado
-        server.listen(freePort, () => {
-            console.log(`✅ El servidor se está escuchando en el puerto http://localhost:${freePort}`);
+        // Inicia el servidor en el puerto fijo 3001
+        server.listen(PORT, '0.0.0.0', () => {
+            console.log(colors.green.bold(`✅ Servidor escuchando en http://localhost:${PORT}`));
         });
 
     } catch (error) {
-        console.error('Error al conectar a la base de datos:', error);
+        console.error('❌ Error al conectar a la base de datos:', error);
     }
 }
 
 startServer();
-
 
 
 

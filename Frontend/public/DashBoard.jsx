@@ -20,6 +20,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import "../src/styles/fondo.css";
+import AnalisisIA from "../src/pages/AnalisisIA/AnalisisIA";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -50,7 +51,16 @@ export default function DashBoard() {
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "config" && <ConfigView />}
+
+        {contenidoActual === "analisisia" && <AnalisisIA/>}    
+
+
+
+
+
+
         {contenidoActual === "perfil" && <HomeDash />}
+
       </main>
 
       <ActivBot irAChatai={() => setContenidoActual("chatai")} />

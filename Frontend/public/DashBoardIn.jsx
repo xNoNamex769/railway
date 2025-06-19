@@ -19,7 +19,11 @@ import ChatAI from "../src/pages/ChatAI/ChatAI";
 import UserViewIn from "../src/pages/UserView/UserViewIn";
 import ConfigViewIn from "../src/pages/ConfigView/ConfigViewIn";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
+
+import AsistenciasActividad from "../src/pages/Asistencia/Instructor/AsistenciasActividad";
+
 import ConfigViewAp from "../src/pages/ConfigView/ConfigViewAp";
+
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
@@ -28,6 +32,7 @@ import "../src/styles/global.css";
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [contenidoActual, setContenidoActual] = useState("userviewin");
+  const [idSeleccionada, setIdSeleccionada] = useState(null);
 
   const toggleMenu = () => {
     setMenuAbierto(!menuAbierto);
@@ -40,11 +45,27 @@ export default function DashBoard() {
         toggleMenu={toggleMenu}
         setContenidoActual={setContenidoActual}
       />
+
       <main className="contenidodash">
+
+        <NavbarIn
+          toggleMenu={toggleMenu}
+          setContenidoActual={setContenidoActual}
+        />
+
+        {contenidoActual === "userviewin" && <UserViewIn />}
+        {contenidoActual === "actividades" && (
+          <Actividades
+            setContenidoActual={setContenidoActual}
+            setIdSeleccionada={setIdSeleccionada}
+          />
+        )}
+
         {contenidoActual === "userviewin" && (
           <UserViewIn setContenidoActual={setContenidoActual} />
         )}
         {contenidoActual === "actividades" && <Actividades />}
+
         {contenidoActual === "aplicacion" && <Aplicacion />}
         {contenidoActual === "plan" && <Planificar />}
         {contenidoActual === "registrarl" && <Registroludicas />}
@@ -60,12 +81,17 @@ export default function DashBoard() {
         {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "config" && <ConfigViewIn />}
         {contenidoActual === "alquiler" && <Alquiler />}
+
+        {contenidoActual === "asistenciasactividad" && (
+          <AsistenciasActividad IdActividad={idSeleccionada} />
+
         {contenidoActual === "planevento" && <div></div>}
         {contenidoActual === "alquiler" && <div></div>}
         {contenidoActual === "registrarl" && (
           <div>
             <h2>Solicitud de apoyo</h2>
           </div>
+
         )}
         {contenidoActual === "userview" && (
           <UserView setContenidoActual={setContenidoActual} />

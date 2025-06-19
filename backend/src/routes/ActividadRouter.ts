@@ -47,4 +47,5 @@ router.delete(
   ActividadControllers.eliminarIdActividad
 );
 
+
 export default router;

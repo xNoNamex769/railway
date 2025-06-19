@@ -1,8 +1,14 @@
 import { Router } from 'express';
-import { body, param } from 'express-validator';
 import { handleInputErrors } from '../middleware/validation';
-import {validateAsistenciaBody,validateIdAsistencia,validateIdAsistenciaYaExiste,} from '../middleware/Asistencia'; 
+import {
+  validateAsistenciaBody,
+  validateIdAsistencia,
+  validateIdAsistenciaYaExiste,
+} from '../middleware/Asistencia';
+import { validateTipoQR } from '../middleware/ValidarTipoQR'; 
+import { verificarToken } from '../middleware/VerificarToken';
 import { AsistenciaControllers } from '../controllers/AsistenciaController';
+import { authenticate } from '../middleware/auth';
 
 const router = Router();
 
@@ -35,12 +41,29 @@ router.put(
   AsistenciaControllers.actualizarIdAsistencia
 );
 
-// Eliminar una asistencia por ID
+// Eliminar una asistencia
 router.delete(
   '/:AsiId',
   validateIdAsistencia,
   handleInputErrors,
   AsistenciaControllers.eliminarIdAsistencia
 );
+
+
+
+// 📌 Registrar por QR con token y validación de tipo
+router.post(
+  '/qr',
+  verificarToken,
+  validateTipoQR,        
+  handleInputErrors,
+  AsistenciaControllers.registrarDesdeQR
+);
+
+// 🧾 Historial por usuario
+router.get("/historial/:IdUsuario", AsistenciaControllers.getHistorialAsistenciaPorUsuario);
+router.get("/actividad/:IdActividad",authenticate,AsistenciaControllers.obtenerAsistenciasPorActividad);
+
+
 
 export default router;

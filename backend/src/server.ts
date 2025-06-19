@@ -18,6 +18,8 @@ import  NotificacionesRouter  from './routes/NotificacionesRouter';
 import  PlanificacionEventoRouter  from './routes/PlanificacionEventoRouter';
 import  RelUsuarioEventoRouter from './routes/RelUsuarioEventoRouter';
 import SolicitudApoyoRouter from './routes/SolicitudApoyoRouter';
+import AnalisisIARouter from './routes/AnalisisIARouter';
+import analizarComentarioIARouter from './routes/AnalizarComentarioIARouter';
 
 
 async function connectDB() {
@@ -61,5 +63,6 @@ app.use("/api/notificaciones", NotificacionesRouter)
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
 app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
 app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
-
+app.use("/api/analisisia", AnalisisIARouter);
+app.use("/api/comentario", analizarComentarioIARouter);
 export default app;

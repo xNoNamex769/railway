@@ -175,7 +175,17 @@ export class UsuarioController {
     }
 
     const token = generateJWT(usuario.IdUsuario);
-    res.json(token);
+res.status(200).json({
+  token,
+  usuario: {
+    IdUsuario: usuario.IdUsuario,
+    Nombre: usuario.Nombre,
+    Correo: usuario.Correo,
+ 
+  }
+});
+
+
   };
 
   // Solicitar cambio de contraseña

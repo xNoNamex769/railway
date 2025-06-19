@@ -5,10 +5,15 @@ import {
   FaHome,
   FaTimes,
 } from "react-icons/fa";
+
+
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
-import Folder from "../../../../Components/Folder/Folder";
 
+
+
+import Folder from "../../../../Components/Folder/Folder";
+import logo from "../img/logo.png";
 export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
 
@@ -85,6 +90,11 @@ export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoAct
           <FaCalendarAlt className="iconodash" />
           Aprobados
         </button>
+        <button onClick={() => setContenidoActual("asistenciasactividad")} className="opciondash">
+  <FaCheckSquare className="iconodash" />
+  Asistencias por Actividad
+</button>
+
 
         <div className="folder-dash-container">
           <Folder
