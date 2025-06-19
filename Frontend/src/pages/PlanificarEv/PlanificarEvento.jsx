@@ -93,8 +93,20 @@ function EventPlanner() {
               📲 Generar QR para evento
             </button>
             {qrVisible[event.id] && (
-              <div className="qr-placeholder">
-                <p>[QR Simulado para: {event.name}]</p>
+              <div className="qr-section">
+                <div className="qr-placeholder">
+                  <p>[QR Simulado para: {event.name}]</p>
+                </div>
+                <div className="event-image">
+                  <img
+                    src="https://via.placeholder.com/200x120.png?text=Imagen+del+Evento"
+                    alt={`Imagen del evento ${event.name}`}
+                    style={{ marginTop: "10px", borderRadius: "8px" }}
+                  />
+                </div>
+                <div className="attendee-counter">
+                  <p>👥 Personas que asistirán: <strong>{Math.floor(Math.random() * 100) + 1}</strong></p>
+                </div>
               </div>
             )}
             <button
