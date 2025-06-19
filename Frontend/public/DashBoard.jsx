@@ -3,7 +3,7 @@ import MenuLateral from "../src/pages/DashBoard/DashBoardComponents/DashA/MenuLa
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
-import CalendarioAdmin from "../src/pages/CalendarioAdmin/Calendario";
+import CalendarioAdmin from "../src/pages/CalendarioAdmin/CalendarioAp";
 import DetallesAlquiler from "../src/pages/DetallesAlquiler/DetallerAlquiler";
 import ConstanciaCertificado from "../src/pages/ConstanciaCertificado/ConstanciaCR";
 import Actividades from "../src/pages/Actividades/Actividades";
@@ -13,14 +13,15 @@ import Combinar from "../src/pages/CombinarFA/Combinar";
 import CartaContacto from "../src/pages/CartasContacto/CartaContacto";
 import ChatAI from '../src/pages/ChatAI/ChatAI';
 import UserView from "../src/pages/UserView/UserView";
+import Navbar from "../src/pages/DashBoard/DashBoardComponents/DashA/Navbar";
 import ConfigView from "../src/pages/ConfigView/ConfigView";
+import AnalisisIA from "../src/pages/AnalisisIA/AnalisisIA";
 
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import "../src/styles/fondo.css";
-import AnalisisIA from "../src/pages/AnalisisIA/AnalisisIA";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -39,6 +40,11 @@ export default function DashBoard() {
       />
 
       <main className="contenidodash">
+        <Navbar
+          toggleMenu={toggleMenu}
+          setContenidoActual={setContenidoActual}
+        />
+
         {contenidoActual === "userview" && <UserView setContenidoActual={setContenidoActual} />}
         {contenidoActual === "actividad" && <Actividades />}
         {contenidoActual === "aplicacion" && <Aplicacion />}
@@ -51,16 +57,8 @@ export default function DashBoard() {
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "config" && <ConfigView />}
-
-        {contenidoActual === "analisisia" && <AnalisisIA/>}    
-
-
-
-
-
-
+        {contenidoActual === "analisisia" && <AnalisisIA />}
         {contenidoActual === "perfil" && <HomeDash />}
-
       </main>
 
       <ActivBot irAChatai={() => setContenidoActual("chatai")} />

@@ -18,7 +18,7 @@ import {
 import logo from "../img/logo.png";
 import { FaQrcode } from "react-icons/fa";
 
-=======
+
 import avatar from "../img/avatar.png";
 
 import "../DashAp/GlassIcons/style/GlassIcons.css";
@@ -50,7 +50,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
   };
 
   const menuItems = [
-    { key: "userviewap", icon: <FaHome />, label: "Inicio", color: "blue" },
+    { key: "userviewin", icon: <FaHome />, label: "Inicio", color: "blue" },
     { key: "actividades", icon: <FaListAlt />, label: "Actividades", color: "purple" },
     { key: "aplicacion", icon: <FaRegCalendarCheck />, label: "Eventos", color: "red" },
     { key: "ludicas", icon: <FaRunning />, label: "Lúdicas", color: "indigo" },
@@ -72,7 +72,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
       <section className="Clogodash">
         <div className="UserHeaderInfo" onClick={toggleDropdown}>
           <img src={avatar} alt="Usuario" className="avatardash" />
-          <span className="nombredash">Administrador</span>
+          <span className="nombredash">Aprendiz</span>
         </div>
         <button className="subirdash" onClick={toggleMenu}>
           <FaTimes />

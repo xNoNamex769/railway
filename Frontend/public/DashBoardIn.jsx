@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import MenuLateralIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/MenuLateralIn";
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
-//import NavbarIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/NavbarIn";
-import CalendarioAdmin from "../src/pages/CalendarioAdmin/Calendario";
+import NavbarIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/NavbarIn";
+import CalendarioAdmin from "../src/pages/CalendarioAdmin/CalendarioAp";
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
 import Planificar from "../src/pages/Planificar/Planificar";
 import Registroludicas from "../src/pages/RegistroLudicas/Registroludicas";
@@ -19,10 +19,8 @@ import ChatAI from "../src/pages/ChatAI/ChatAI";
 import UserViewIn from "../src/pages/UserView/UserViewIn";
 import ConfigViewIn from "../src/pages/ConfigView/ConfigViewIn";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
-
 import AsistenciasActividad from "../src/pages/Asistencia/Instructor/AsistenciasActividad";
-
-import ConfigViewAp from "../src/pages/ConfigView/ConfigViewAp";
+// import UserView from "../src/pages/UserView/UserView"; // Descomenta si lo necesitas
 
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
@@ -47,28 +45,23 @@ export default function DashBoard() {
       />
 
       <main className="contenidodash">
-
         <NavbarIn
           toggleMenu={toggleMenu}
           setContenidoActual={setContenidoActual}
         />
 
-        {contenidoActual === "userviewin" && <UserViewIn />}
+        {contenidoActual === "userviewin" && (
+          <UserViewIn setContenidoActual={setContenidoActual} />
+        )}
         {contenidoActual === "actividades" && (
           <Actividades
             setContenidoActual={setContenidoActual}
             setIdSeleccionada={setIdSeleccionada}
           />
         )}
-
-        {contenidoActual === "userviewin" && (
-          <UserViewIn setContenidoActual={setContenidoActual} />
-        )}
-        {contenidoActual === "actividades" && <Actividades />}
-
         {contenidoActual === "aplicacion" && <Aplicacion />}
         {contenidoActual === "plan" && <Planificar />}
-        {contenidoActual === "registrarl" && <Registroludicas />}
+        {contenidoActual === "registrarl" && <Registroludicas/>}
         {contenidoActual === "feedback" && <Feedbacks />}
         {contenidoActual === "comprobar" && <Combinar />}
         {contenidoActual === "calendario" && <CalendarioAdmin />}
@@ -79,23 +72,17 @@ export default function DashBoard() {
         {contenidoActual === "chromagrid" && <ChromaGrid />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "perfil" && <HomeDash />}
+        {contenidoActual === "registroludicas" && <Registroludicas />}
+
         {contenidoActual === "config" && <ConfigViewIn />}
         {contenidoActual === "alquiler" && <Alquiler />}
-
         {contenidoActual === "asistenciasactividad" && (
           <AsistenciasActividad IdActividad={idSeleccionada} />
-
-        {contenidoActual === "planevento" && <div></div>}
-        {contenidoActual === "alquiler" && <div></div>}
-        {contenidoActual === "registrarl" && (
-          <div>
-            <h2>Solicitud de apoyo</h2>
-          </div>
-
         )}
-        {contenidoActual === "userview" && (
+        {/* Si llegas a usar este componente, descomenta la línea de importación también */}
+        {/* {contenidoActual === "userview" && (
           <UserView setContenidoActual={setContenidoActual} />
-        )}
+        )} */}
       </main>
 
       <ActivBot irAChatai={() => setContenidoActual("chatai")} />

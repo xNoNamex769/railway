@@ -9,7 +9,7 @@ import {
   FaUserGraduate,
 } from "react-icons/fa";
 
-import React from "react";
+
 
 
 
@@ -92,13 +92,8 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           ConstanciaAD
         </button>
 
-         <button
-          onClick={() => setContenidoActual("cartacontacto")}
-            className="opciondash"
-           >
-            <FaCalendarAlt className="iconodash" />
-           Contactos
-                </button>
+       
+       
                  <button
           onClick={() => setContenidoActual("cartacontacto")}
             className="opciondash"
@@ -114,10 +109,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
            Analisisia
                 </button>
 
-        <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
-          <FaCalendarAlt className="iconodash" />
-          Contactos
-        </button>
+       
 
         <img src={logo} alt="Logo" />
       </nav>

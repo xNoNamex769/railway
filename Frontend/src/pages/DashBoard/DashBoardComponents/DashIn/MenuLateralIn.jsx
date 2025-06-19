@@ -3,6 +3,7 @@ import {
   FaCalendarAlt,
   FaDiscourse,
   FaHome,
+  FaCheckSquare,
   FaTimes,
 } from "react-icons/fa";
 
@@ -13,7 +14,7 @@ import avatar from "../img/avatar.png";
 
 
 import Folder from "../../../../Components/Folder/Folder";
-import logo from "../img/logo.png";
+
 export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
 
@@ -36,7 +37,7 @@ export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoAct
       <section className="Clogodash">
         <div className="UserHeaderInfo" onClick={toggleDropdown}>
           <img src={avatar} alt="Usuario" className="avatardash" />
-          <span className="nombredash">Administrador</span>
+          <span className="nombredash">Instructor</span>
         </div>
         <button className="subirdash" onClick={toggleMenu}>
           <FaTimes />

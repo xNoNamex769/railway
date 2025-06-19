@@ -23,15 +23,17 @@ import CalendarioAp from "../src/pages/CalendarioAdmin/CalendarioAp";
 import EscanerQR from "../src/Components/QrGenerador.jsx/EscanerHtml5QR";
 import Constancia from "../src/pages/Constancia/components/ConstanciasList";
 import Footer from "../src/pages/Home/FooterHome";
+import NavbarAp from '../src/pages/DashBoard/DashBoardComponents/DashAp/NavbarAp';
 
 import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
+import UserViewIn from "../src/pages/UserView/UserViewIn";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
-  const [contenidoActual, setContenidoActual] = useState("userviewap");
+  const [contenidoActual, setContenidoActual] = useState("userviewin");
   const [validando, setValidando] = useState(true);
 
   const navigate = useNavigate();
@@ -82,7 +84,7 @@ export default function DashBoard() {
         />
 
          
-        {contenidoActual === "userviewap" && <UserViewAp />}
+        {contenidoActual === "userviewin" && <UserViewIn />}
         {contenidoActual === "actividades" && <Actividades />}
         {contenidoActual === "aplicacion" && <Aplicacion />}
         {contenidoActual === "ludicas" && <Ludicas />}
@@ -99,7 +101,7 @@ export default function DashBoard() {
         {contenidoActual === "config" && <ConfigViewAp />}
         {contenidoActual === "escanerqr" && <EscanerQR />}
         {contenidoActual === "calendario" && <CalendarioAp />}
-        {contenidoActual === "userview" && <UserViewAp setContenidoActual={setContenidoActual} />}
+        {contenidoActual === "userviewIN" && <UserViewIn setContenidoActual={setContenidoActual} />}
       </main>
 
       <ActivBot irAChatai={() => setContenidoActual("chatai")} />
