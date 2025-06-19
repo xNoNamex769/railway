@@ -7,7 +7,7 @@ import luisimg from '../CartasContacto/img/luis.png';
 import carlaimg from '../CartasContacto/img/carla.png';
 import aleximg from '../CartasContacto/img/alex.png';
 import logoimg from '../CartasContacto/img/logo-sena.png';
-
+import logonosotros from "./img/logo-sena.png"
 
 const users = [
   {
