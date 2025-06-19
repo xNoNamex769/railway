@@ -87,4 +87,29 @@ export class AlquilerElementosControllers {
       res.status(500).json({ error: 'Error al obtener alquileres por usuario' });
     }
   };
+
+static registrarDesdeQR = async (req: Request, res: Response) => {
+  try {
+    const IdUsuario = req.usuario?.IdUsuario;
+    const { IdElemento } = req.body;
+
+    if (!IdUsuario || !IdElemento) {
+   res.status(400).json({ error: "Faltan datos del usuario o del elemento." });
+   return;
+    }
+
+    await AlquilerElementos.create({
+      IdUsuario,
+      Elemento: `Elemento ID ${IdElemento}`, // Aquí puedes mejorar si tienes tabla elementos
+      FechaEntrega: new Date(),
+      FechaDevolucion: null,
+      Observaciones: "Registrado automáticamente desde QR",
+    });
+
+    res.json({ mensaje: "Alquiler registrado exitosamente desde QR." });
+  } catch (error) {
+    console.error("Error al registrar desde QR:", error);
+    res.status(500).json({ error: "Error interno al registrar el alquiler desde QR." });
+  }
+};
 }
