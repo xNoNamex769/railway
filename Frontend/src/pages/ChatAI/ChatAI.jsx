@@ -1,18 +1,20 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import "./styles/ChatStyle.css";
-import chatai from '../ChatAI/img/chat-icon.svg'
+import chatai from '../ChatAI/img/chat-icon.svg';
+
 export default function ChatAI() {
- 
 
   const [messages, setMessages] = useState([
     { text: "Hola! Soy Activbot 'como estas ?¿En qué puedo ayudarte El dia de hoy , sere tu acompañante en esta aplicacion innovadora?", sender: "bot" }
   ]);
   const [input, setInput] = useState("");
+  const [history, setHistory] = useState([]); //  NUEVO: historial de preguntas
 
   const sendMessage = () => {
     if (!input.trim()) return;
     const userMessage = { text: input, sender: "user" };
     setMessages(prev => [...prev, userMessage]);
+    setHistory(prev => [...prev, input]); //  Guardar en historial
     setInput("");
 
     setTimeout(() => {
@@ -59,6 +61,15 @@ export default function ChatAI() {
             ➤
           </button>
         </div>
+      </div>
+
+      <div className="history-box">
+        <h3>Historial de preguntas</h3>
+        <ul>
+          {history.map((q, idx) => (
+            <li key={idx}>{q}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

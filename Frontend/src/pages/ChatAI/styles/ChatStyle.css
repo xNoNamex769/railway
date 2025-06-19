@@ -128,4 +128,34 @@
     font-weight: bold;
     color: #6de429;
   }
+
+  .history-box {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 15px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+
+.history-box h3 {
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.history-box ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.history-box li {
+  margin-bottom: 5px;
+  color: #444;
+}
+
   
