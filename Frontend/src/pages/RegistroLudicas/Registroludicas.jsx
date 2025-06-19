@@ -83,7 +83,7 @@ const ActivityRegistration = () => {
           </label>
 
           <label>
-            👥 Cupos disponibles
+            👥 Cupos Disponibles
             <input type="number" name="capacity" value={activityData.capacity} onChange={handleChange} required min="1" />
           </label>
 
