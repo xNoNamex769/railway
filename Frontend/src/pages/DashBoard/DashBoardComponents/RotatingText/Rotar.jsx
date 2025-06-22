@@ -10,7 +10,8 @@ export default function RotatingTextWrapper() {
         justifyContent: "center",
         alignItems: "center",
         fontFamily:"arial",
-        minHeight: "100px",
+        minHeight: "200px",
+     
        
        
         
@@ -21,8 +22,8 @@ export default function RotatingTextWrapper() {
         <header className="texto-activsena">ActivSena</header>
       <RotatingText
       
-        texts={["¡Conecta!", "¡Gestiona!", "¡Aprende!", "Diviertete!"] }
-        mainClassName="rotating-text-main"
+        texts={["¡Conecta!", "¡Gestiona!", "¡Aprende!", "¡Diviertete!"] }
+        mainClassName="rotating-text-main texto-activ"
         splitLevelClassName="rotating-text-split-level"
         rotationInterval={2000}
       />

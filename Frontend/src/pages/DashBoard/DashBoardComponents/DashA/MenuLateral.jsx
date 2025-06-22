@@ -9,13 +9,17 @@ import {
   FaQrcode,
   FaUserGraduate,
   FaAddressBook,
+  	FaInfoCircle,
   FaChartBar,
+  FaUpload,
+  FaBoxOpen,
   FaChevronDown,
   FaChevronRight,
 } from "react-icons/fa";
 
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
+import "../DashA/style/MenuLateral.css"
 
 export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -49,9 +53,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Administrador</span>
         </div>
-        <button className="subirdash" onClick={toggleMenu}>
-          <FaAlignJustify />
-        </button>
+       
 
         {mostrarMenu && (
           <div className="menudesplegabledash">
@@ -100,11 +102,19 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           {openSection.alquiler && (
             <>
               <button onClick={() => setContenidoActual("registroa")} className="opciondash">
-                <FaQrcode className="iconodash" /> Registro Alquiler
+                <FaQrcode className="iconodash" /> Registro Prestamo
               </button>
               <button onClick={() => setContenidoActual("detallea")} className="opciondash">
-                <FaAlignJustify className="iconodash" /> Detalles Alquiler
+                <	FaInfoCircle className="iconodash" /> Detalles Prestamos
               </button>
+              <button onClick={() => setContenidoActual("gestioncatalogo")} className="opciondash">
+                <FaBoxOpen className="iconodash" /> Elementos Subidos
+              </button>
+              <button onClick={() => setContenidoActual("formulariocatalogo")} className="opciondash">
+                <FaUpload className="iconodash" /> SubirElemento
+              </button>
+
+
             </>
           )}
         </div>

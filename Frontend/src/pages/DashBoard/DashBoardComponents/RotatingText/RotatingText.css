@@ -47,18 +47,19 @@
 .rotating-text-main {
   padding-left: 0.5rem;   /* px-2 */
   padding-right: 0.5rem;  /* px-2 */
-  background-color: #eaf0ea; /* bg-cyan-300 */
+  background-color: #3be9af; /* bg-cyan-300 */
   color: black;           /* text-black */
   overflow: hidden;
 
   margin-right: 400px;
-  margin-left: 3px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding-top: 0.125rem;  /* py-0.5 */
   padding-bottom: 0.125rem;
   display: flex;
 
 
- width: 150px;
+ width: 170px;
   justify-content: center;
   border-radius: 0.5rem;  /* rounded-lg */
 }
@@ -108,3 +109,10 @@
   font-size: 30px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.texto-activ{
+  color: rgb(249, 250, 249);
+  font-size: 18px;
+  
+}
+

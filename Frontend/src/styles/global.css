@@ -77,7 +77,7 @@
   padding: 10px 20px;
   background-color: #dbdada;
    background-color:#3366cc;;
-  
+  margin-left: 10px;;
   position: relative;
   top: -6mm;
   right: 55px;
@@ -126,9 +126,9 @@
   background-color: #f7f7f7;
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.2);
   color: rgb(87, 86, 86);
-   filter: drop-shadow(1px 5px 5px rgb(64, 236, 12));
+   filter: drop-shadow(1px 5px 5px rgb(14, 233, 87));
    
-   margin-left: 3px;
+   margin-left: 10px;
 
 }
 .iconodashm{
@@ -148,7 +148,7 @@
 
 .opciondash:hover {
   
-  background: #0aee56;
+  background: #22f09a;
   
   
 }
@@ -163,6 +163,7 @@
 
 .iconodash {
   font-size: 25px;
+  
 
   transition: color 0.3s;
 }
@@ -230,7 +231,7 @@
 }
 
 .menudash-lateral.oculto {
-  
+  background-color: #00C853;
   display: none;
 }
 
@@ -317,7 +318,7 @@
   height: 100vh;
   padding: 20px;
   background-color: #f4f4f4;
-   background-image: url("../pages/AlquierAP/img/fondo.webp");
+  
    background-position: center;
    background-repeat: no-repeat;
    
@@ -340,7 +341,7 @@ margin-right: 00px;
 .opciondash > span.iconodash {
   flex-shrink: 0;       /* que no se reduzca el tamaño del icono */
   font-size: 25px;      /* tamaño adecuado */
-  display: flex;        /* para centrar icono si es necesario */
+  display: flex;   /* para centrar icono si es necesario */
   align-items: center;
   justify-content: center;
 }
@@ -363,6 +364,7 @@ margin-right: 00px;
   flex-direction: column;
   gap: 1rem; /* o más, según necesites */
   padding: 1rem 0;
+  
 }
 .contenidodash {
   position: relative;
@@ -372,11 +374,10 @@ margin-right: 00px;
   height: 100vh;
   padding: 20px;
 
-  background-image: url("../pages/AlquierAP/img/fondo.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-    background-color: rgba(3, 3, 3, 0.85);
+    background-color: rgba(255, 255, 255, 0.85);
   z-index: 1;
 }
 
@@ -479,6 +480,7 @@ margin-right: 00px;
 }
 
 .UserHeaderInfo {
+  
   display: flex;
   align-items: center;
   cursor: pointer;

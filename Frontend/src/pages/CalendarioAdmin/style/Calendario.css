@@ -37,12 +37,15 @@
   
   .app-title {
     font-size: 2rem;
+    color: white;
     color: var(--dark-color);
+    color: rgb(15, 15, 15);
     margin: 0;
   }
   
   .sena-text {
     color: var(--secondary-color);
+    color: white;
   }
   
   /* Botón de notificaciones */

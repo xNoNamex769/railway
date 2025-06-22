@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Tus imports existentes...
+
 import MenuLateralAp from "../src/pages/DashBoard/DashBoardComponents/DashAp/MenuLateralAp";
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
@@ -19,7 +19,7 @@ import UserViewAp from "../src/pages/UserView/UserViewAp";
 import Actividades from "../src/pages/Actividades/Actividades";
 import Aplicacion from "../src/pages/Aplicacion/Aplicacion";
 import ConfigViewAp from "../src/pages/ConfigView/ConfigViewAp";
-import CalendarioAp from "../src/pages/CalendarioAdmin/CalendarioAp";
+import CalendarioActividades from "../src/pages/CalendarioAdmin/CalendarioActividades";
 import EscanerQR from "../src/Components/QrGenerador.jsx/EscanerHtml5QR";
 import Constancia from "../src/pages/Constancia/components/ConstanciasList";
 import Footer from "../src/pages/Home/FooterHome";
@@ -62,7 +62,7 @@ export default function DashBoard() {
       <div
         style={{ textAlign: "center", paddingTop: "5rem", fontSize: "1.5rem" }}
       >
-        Validando sesión... 🔐
+        Validando sesión... 
       </div>
     );
   }
@@ -80,7 +80,7 @@ export default function DashBoard() {
         <NavbarAp
           toggleMenu={() => setMenuAbierto(!menuAbierto)}
           setContenidoActual={setContenidoActual}
-          cerrarSesion={cerrarSesion} // 👈 Prop clave para cerrar sesión
+          cerrarSesion={cerrarSesion} //  Prop clave para cerrar sesión
         />
 
          
@@ -100,7 +100,7 @@ export default function DashBoard() {
         {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "config" && <ConfigViewAp />}
         {contenidoActual === "escanerqr" && <EscanerQR />}
-        {contenidoActual === "calendario" && <CalendarioAp />}
+        {contenidoActual === "calendarioactividades" && <CalendarioActividades />}
         {contenidoActual === "userviewIN" && <UserViewIn setContenidoActual={setContenidoActual} />}
       </main>
 

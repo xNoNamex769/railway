@@ -22,6 +22,8 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import "../src/styles/fondo.css";
+import GestionCatalogo from "../src/pages/AlquierAP/GestionFormulario";
+import FormularioCatalogo from "../src/pages/AlquierAP/FormularioCatalogo";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -58,6 +60,8 @@ export default function DashBoard() {
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "config" && <ConfigView />}
         {contenidoActual === "analisisia" && <AnalisisIA />}
+         {contenidoActual === "gestioncatalogo" && <GestionCatalogo />}
+      {contenidoActual === "formulariocatalogo" && <FormularioCatalogo />}
         {contenidoActual === "perfil" && <HomeDash />}
       </main>
 

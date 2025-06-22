@@ -28,6 +28,9 @@ export class AlquilerElementos extends Model {
   @Column({ type: DataType.INTEGER, allowNull: true })
   declare IdUsuario: number;
 
+  @Column({ type: DataType.STRING, allowNull: true })
+declare Imagen: string;
+
   @BelongsTo(() => Usuario)
   declare usuario: Usuario;  // Esta bloque linea como lo quieran llamar  zozorras es la que define la relación con Usuario
 }

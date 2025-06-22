@@ -1,25 +1,35 @@
 import React, { useState } from "react";
 import {
   FaCalendarAlt,
-  FaDiscourse,
   FaHome,
   FaCheckSquare,
-  FaTimes,
   FaQrcode,
   FaThumbsUp,
   FaAddressBook,
   FaIdBadge,
   FaCommentDots,
+  FaChevronDown,
+  FaChevronRight,
+  FaClipboardList,
 } from "react-icons/fa";
 
 import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
-import Folder from "../../../../Components/Folder/Folder";
+import "../DashA/style/MenuLateral.css";
 
-export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoActual }) {
+export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
+  const [openSection, setOpenSection] = useState({
+    eventos: true,
+    gestionEventos: true,
+    aprendices: true,
+    feedback: true,
+  });
 
   const toggleDropdown = () => setMostrarMenu((prev) => !prev);
+  const toggleSection = (section) => {
+    setOpenSection((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
 
   const irAPerfil = () => {
     setContenidoActual("perfil");
@@ -33,14 +43,12 @@ export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoAct
 
   return (
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
+      {/* Header */}
       <section className="Clogodash">
         <div className="UserHeaderInfo" onClick={toggleDropdown}>
           <img src={avatar} alt="Usuario" className="avatardash" />
           <span className="nombredash">Instructor</span>
         </div>
-        <button className="subirdash" onClick={toggleMenu}>
-          <FaTimes />
-        </button>
 
         {mostrarMenu && (
           <div className="menudesplegabledash">
@@ -54,59 +62,94 @@ export default function MenuLateralIn({ menuAbierto, toggleMenu, setContenidoAct
       </section>
 
       <nav className="menudash">
+        {/* Inicio */}
         <button onClick={() => setContenidoActual("userviewin")} className="opciondash">
           <FaHome className="iconodash" /> Inicio
         </button>
 
-        <button onClick={() => setContenidoActual("actividades")} className="opciondash">
-          <FaCheckSquare className="iconodash" /> Actividades
-        </button>
-
-        <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
-          <FaCalendarAlt className="iconodash" /> Eventos
-        </button>
-
-        <button onClick={() => setContenidoActual("comprobar")} className="opciondash">
-          <FaCommentDots className="iconodash" /> Feedback
-        </button>
-
-        <button onClick={() => setContenidoActual("calendario")} className="opciondash">
-          <FaCalendarAlt className="iconodash" /> Calendario
-        </button>
-
-        <button onClick={() => setContenidoActual("aprendiz")} className="opciondash">
-          <FaIdBadge className="iconodash" /> Constancia de Aprendiz
-        </button>
-
-        <button onClick={() => setContenidoActual("registro")} className="opciondash">
-          <FaQrcode className="iconodash" /> Registro QR
-        </button>
-
-        <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
-          <FaAddressBook className="iconodash" /> Contactos
-        </button>
-
-        <button onClick={() => setContenidoActual("chromagrid")} className="opciondash">
-          <FaThumbsUp className="iconodash" /> Aprobados
-        </button>
-
-        <button onClick={() => setContenidoActual("asistenciasactividad")} className="opciondash">
-          <FaCheckSquare className="iconodash" /> Asistencias por Actividad
-        </button>
-
-        <div className="folder-dash-container">
-          <Folder
-            items={[
-              { id: "planevento", nombre: "Eventos" },
-              { id: "alquiler", nombre: "Alquiler" },
-              { id: "registrarl", nombre: "Lúdicas" },
-            ]}
-            color="#30ee0a"
-            size={1}
-            onSelectItem={(itemId) => setContenidoActual(itemId)}
-          />
+        {/* 1. Eventos y Actividades */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("eventos")}>
+            {openSection.eventos ? <FaChevronDown /> : <FaChevronRight />} Eventos y Actividades
+          </button>
+          {openSection.eventos && (
+            <>
+              <button onClick={() => setContenidoActual("actividades")} className="opciondash">
+                <FaCheckSquare className="iconodash" /> Actividades
+              </button>
+              <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
+                <FaCalendarAlt className="iconodash" /> Eventos
+              </button>
+              <button onClick={() => setContenidoActual("calendarioactividades")} className="opciondash">
+                <FaCalendarAlt className="iconodash" /> Calendario
+              </button>
+             
+            </>
+          )}
         </div>
 
+        {/* 2. Gestión de Eventos */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("gestionEventos")}>
+            {openSection.gestionEventos ? <FaChevronDown /> : <FaChevronRight />} Gestión de Eventos y Actividades
+          </button>
+          {openSection.gestionEventos && (
+            <>
+              <button onClick={() => setContenidoActual("planevento")} className="opciondash">
+                <FaCalendarAlt className="iconodash" /> Planificar Evento
+              </button>
+              <button onClick={() => setContenidoActual("registroactividades")} className="opciondash">
+                <FaCheckSquare className="iconodash" /> Registro Actividades
+              </button>
+              <button onClick={() => setContenidoActual("alquiler")} className="opciondash">
+                <FaQrcode className="iconodash" /> Registro Prestamos
+              </button>
+               <button onClick={() => setContenidoActual("chromagrid")} className="opciondash">
+                <FaThumbsUp className="iconodash" /> Aprobados
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* 3. Gestión de Aprendices */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("aprendices")}>
+            {openSection.aprendices ? <FaChevronDown /> : <FaChevronRight />} Gestión de Aprendices
+          </button>
+          {openSection.aprendices && (
+            <>
+              <button onClick={() => setContenidoActual("registro")} className="opciondash">
+                <FaQrcode className="iconodash" /> Registro QR
+              </button>
+              <button onClick={() => setContenidoActual("aprendiz")} className="opciondash">
+                <FaIdBadge className="iconodash" /> Constancia
+              </button>
+               <button onClick={() => setContenidoActual("asistenciasactividad")} className="opciondash">
+                <FaClipboardList className="iconodash" /> Asistencias por Actividad
+              </button>
+             
+            </>
+          )}
+        </div>
+
+        {/* 4. Feedback y Contacto */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("feedback")}>
+            {openSection.feedback ? <FaChevronDown /> : <FaChevronRight />} Feedback y Contacto
+          </button>
+          {openSection.feedback && (
+            <>
+              <button onClick={() => setContenidoActual("comprobar")} className="opciondash">
+                <FaCommentDots className="iconodash" /> Feedback
+              </button>
+              <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
+                <FaAddressBook className="iconodash" /> Contactos
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Logo */}
         <img src={logo} alt="Logo" />
       </nav>
     </aside>

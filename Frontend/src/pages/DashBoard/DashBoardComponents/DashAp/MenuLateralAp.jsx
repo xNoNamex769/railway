@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import {
-  FaCalendarAlt,
-  FaDiscourse,
   FaHome,
-  FaTimes,
+  FaListAlt,
   FaRegCalendarCheck,
   FaRunning,
-  FaUserGraduate,
-  FaListAlt,
-  
-  FaAddressBook,
+  FaCalendarAlt,
   FaStopwatch,
   FaGamepad,
+  FaQrcode,
+  FaUserGraduate,
+  FaDiscourse,
+  FaAddressBook,
+  FaChevronDown,
+  FaChevronRight,
+  FaTimes,
 } from "react-icons/fa";
 
-
 import logo from "../img/logo.png";
-import { FaQrcode } from "react-icons/fa";
-
-
 import avatar from "../img/avatar.png";
-
-import "../DashAp/GlassIcons/style/GlassIcons.css";
+import "../DashA/style/MenuLateral.css";
 
 export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
+  const [openSection, setOpenSection] = useState({
+    participacion: true,
+    gestion: true,
+    otros: true,
+  });
 
-  const toggleDropdown = () => {
-    setMostrarMenu(prev => !prev);
-  };
+  const toggleDropdown = () => setMostrarMenu((prev) => !prev);
+  const toggleSection = (section) =>
+    setOpenSection((prev) => ({ ...prev, [section]: !prev[section] }));
 
   const irAPerfil = () => {
     setContenidoActual("perfil");
@@ -40,35 +42,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
     setMostrarMenu(false);
   };
 
-  const gradientMapping = {
-    blue: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-    purple: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-    red: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-    indigo: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-    orange: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-    green: "linear-gradient(hsl(120, 83.70%, 48.20%), hsl(128, 98.40%, 48.80%))",
-  };
-
-  const menuItems = [
-    { key: "userviewin", icon: <FaHome />, label: "Inicio", color: "blue" },
-    { key: "actividades", icon: <FaListAlt />, label: "Actividades", color: "purple" },
-    { key: "aplicacion", icon: <FaRegCalendarCheck />, label: "Eventos", color: "red" },
-    { key: "ludicas", icon: <FaRunning />, label: "Lúdicas", color: "indigo" },
-    { key: "horasl", icon: <FaStopwatch />, label: "Horas Lúdicas", color: "orange" },
-    { key: "combinar", icon: <FaDiscourse />, label: "Feedback", color: "green" },
-    { key: "constanciacr", icon: <FaUserGraduate />, label: "Constancia", color: "blue" },
-    { key: "alquilerap", icon: <FaGamepad />, label: "Préstamos", color: "purple" },
-    { key: "calendario", icon: <FaCalendarAlt />, label: "Calendario", color: "red" },
-    { key: "escanerqr", icon: <FaQrcode />, label: "Escanear QR", color: "orange" },
-    { key: "cartacontacto", icon: <FaAddressBook />, label: "Contactos", color: "indigo" },
-  ];
-
-  const getBackgroundStyle = (color) => ({
-    background: gradientMapping[color] || color,
-  });
-
   return (
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
+      {/* Header usuario */}
       <section className="Clogodash">
         <div className="UserHeaderInfo" onClick={toggleDropdown}>
           <img src={avatar} alt="Usuario" className="avatardash" />
@@ -83,73 +59,85 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
             <ul>
               <li className="opcionesm" onClick={irAPerfil}>Perfil</li>
               <li className="opcionesm" onClick={irConfig}>Configuración</li>
-              <li className="opcionesm" >Cerrar sesión</li>
+              <li className="opcionesm">Cerrar sesión</li>
             </ul>
           </div>
         )}
       </section>
 
+      {/* Menú principal */}
       <nav className="menudash">
-        {menuItems.map(({ key, icon, label, color }) => (
-          <button
-            key={key}
-            onClick={() => setContenidoActual(key)}
-            className="opciondash icon-btn"
-            type="button"
-            aria-label={label}
-            style={{
-              marginTop:"22px",
-              display: "flex",
-              alignItems: "center",
-              gap: "1.rem",
-              padding: "0.7rem 0.6rem",
-              position: "relative",
-            }}
-          >
-            <span
-              className="icon-btn__back"
-              style={{
-                ...getBackgroundStyle(color),
-                width: "1.rem",
-                height: "1.rem",
-                
-                borderRadius: "0.7rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
-            <span
-              className="icon-btn__front"
-              style={{
-                position: "absolute",
-                width: "0.rem",
-                
-                height: "1.rem",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "white",
-                fontSize: "1.6rem",
-                
-              }}
-            >
-              {icon}
-            </span>
-            <span
-              className="icon-btn__label"
-              style={{
-                top:"0",
-                marginLeft: "5.2rem", 
-                fontWeight: "900",
-                fontSize: "0.95rem",
-                color: "#333",
-              }}
-            >
-              {label}
-            </span>
+
+        {/* Inicio directo */}
+        <button onClick={() => setContenidoActual("userviewin")} className="opciondash">
+          <FaHome className="iconodash" /> Inicio
+        </button>
+
+        {/* Sección: Participación */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("participacion")}>
+            {openSection.participacion ? <FaChevronDown /> : <FaChevronRight />} Participación
           </button>
-        ))}
+          {openSection.participacion && (
+            <>
+              <button onClick={() => setContenidoActual("actividades")} className="opciondash">
+                <FaListAlt className="iconodash" /> Actividades
+              </button>
+              <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
+                <FaRegCalendarCheck className="iconodash" /> Eventos
+              </button>
+              <button onClick={() => setContenidoActual("ludicas")} className="opciondash">
+                <FaRunning className="iconodash" /> Lúdicas
+              </button>
+              <button onClick={() => setContenidoActual("calendarioactividades")} className="opciondash">
+                <FaCalendarAlt className="iconodash" /> Calendario
+              </button>
+              <button onClick={() => setContenidoActual("horasl")} className="opciondash">
+                <FaStopwatch className="iconodash" /> Horas Lúdicas
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Sección: Gestión */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("gestion")}>
+            {openSection.gestion ? <FaChevronDown /> : <FaChevronRight />} Gestión
+          </button>
+          {openSection.gestion && (
+            <>
+              <button onClick={() => setContenidoActual("alquilerap")} className="opciondash">
+                <FaGamepad className="iconodash" /> Préstamos
+              </button>
+              <button onClick={() => setContenidoActual("escanerqr")} className="opciondash">
+                <FaQrcode className="iconodash" /> Escanear QR
+              </button>
+              <button onClick={() => setContenidoActual("constanciacr")} className="opciondash">
+                <FaUserGraduate className="iconodash" /> Constancia
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Sección: Otros */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("otros")}>
+            {openSection.otros ? <FaChevronDown /> : <FaChevronRight />} Otros
+          </button>
+          {openSection.otros && (
+            <>
+              <button onClick={() => setContenidoActual("combinar")} className="opciondash">
+                <FaDiscourse className="iconodash" /> Feedback
+              </button>
+              <button onClick={() => setContenidoActual("cartacontacto")} className="opciondash">
+                <FaAddressBook className="iconodash" /> Contactos
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Logo */}
+        <img src={logo} alt="Logo" />
       </nav>
     </aside>
   );

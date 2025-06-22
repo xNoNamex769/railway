@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function HeroHomeSection() {
   let images = [
-    "url(../../../../public/img/fondo1.jpg)",
-    "url(../../../../public/img/fondo2.jpg)",
-    "url(../../../../public/img/portada3.jpg)",
+    "url(../../../../public/img/fondo1.jpeg)",
+    "url(../../../../public/img/fondo2.jpeg)",
+    "url(../../../../public/img/fondo3.jpeg)",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,7 +48,7 @@ export default function HeroHomeSection() {
           <div className="hero-actions-home">
             <a href="/registro" className="btn-home btn-primary-home a-home">Registrarse</a>
 
-            <Link to="/InicioSesion" className="btn-home btn-primary-home a-home">
+            <Link to="/Cuenta" className="btn-home btn-primary-home a-home">
               Iniciar Sesión
             </Link>
 

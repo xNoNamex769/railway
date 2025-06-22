@@ -8,7 +8,7 @@ export default function Actividades({ setContenidoActual, setIdSeleccionada }) {
   useEffect(() => {
     const fetchActividades = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/api/asistencia/actividad", {
+        const res = await axios.get("http://localhost:3001/api/asistencia", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

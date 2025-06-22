@@ -1,66 +1,84 @@
-import React from "react";
-import "./style/AlquilerAP.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./style/AlquilerAP.css"; 
+import bienestar from "../../../public/img/fondo1.jpeg"
 
-import LogoImg from "../AlquierAP/img/logo.png";
-import futbolImg from "../AlquierAP/img/futbol.jpg";
-import baloncestoImg from "../AlquierAP/img/baloncesto.jpg";
-import DanzaImg from "../AlquierAP/img/danza.jpg";
-import parquesImg from "../AlquierAP/img/parques.jpg";
-import dominoImg from "../AlquierAP/img/domino.png";
-import juegosImg from "../AlquierAP/img/juegos_mesa.jpg";
-import senaImg from "../AlquierAP/img/logo-sena.png";
-import sapoImg from "../AlquierAP/img/sapo.jpg";
+const Alquiler = () => {
+  const [imagenes, setImagenes] = useState([]);
 
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/alquilerelementos/catalogo").then((res) => {
+      setImagenes(res.data);
+    });
+  }, []);
 
+  const placeholders = [
+    "futbol.jpg",
+    "baloncesto.jpg",
+    "danza.jpg",
+    "parques.jpg",
+    "domino.png",
+    "juegos_mesa.jpg",
+    "sapo.jpg",
+    "logo-sena.png",
+  ];
 
-const App = () => {
+  const itemsCarrusel = [...imagenes];
+
+  while (itemsCarrusel.length < 8) {
+    const i = itemsCarrusel.length;
+    itemsCarrusel.push({
+      Imagen: placeholders[i],
+      NombreElemento: "Disponible",
+      esPlaceholder: true,
+    });
+  }
+
   return (
-    <div className="body-alquiler-ap">
-      <head>
-        
-      </head>
-      <header className="header-alquiler-ap">
+    <>
+  <h1 className="texto-unico-elemento titulo-principal"> Prestamo De Elementos</h1>
+    <div className="body-alquiler-ap ">
      
-        <img src={LogoImg} alt="Logo" className="img-header-alquiler-ap" />
-      
-        <h1 className="titulo-header-alquiler-ap">Prestamo de Elementos</h1>
-      </header>
-
       <div className="box">
-        <span style={{ "--i": 1 }}>
-          <img src={DanzaImg} alt="Danza" className="img-danza-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 2 }}>
-          <img src={futbolImg} alt="Fútbol" className="img-futbol-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 3 }}>
-          <img src={parquesImg} alt="Parques" className="img-parques-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 4 }}>
-          <img src={sapoImg} alt="Sapo" className="img-sapo-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 5 }}>
-          <img src={dominoImg} alt="Domino" className="img-domino-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 6 }}>
-          <img
-            src={baloncestoImg}
-            alt="Baloncesto"
-            className="img-baloncesto-alquiler-ap"
-          />
-        </span>
-     
-        <span style={{ "--i": 7 }}>
-          <img src={juegosImg} alt="Juegos de Mesa" className="img-juegos-alquiler-ap" />
-        </span>
-        <span style={{ "--i": 8 }}>
-          <img src={senaImg} alt="Logo Sena" className="img-sena-alquiler-ap" />
-        </span>
+       
+        {itemsCarrusel.map((img, index) => (
+          <span key={index} style={{ "--i": index + 1 }}>
+            <img
+              src={
+                img.esPlaceholder
+                  ? (`/img/${img.Imagen}`)
+                  : `http://localhost:3001/uploads/${img.Imagen}`
+              }
+              alt={img.NombreElemento}
+              className="img-alquiler-catalogo"
+            />
+          </span>
+        ))}
+      
       </div>
       
       
     </div>
+   <main className="bienvenida-bienestar">
+  <div className="bienvenida-texto">
+    <h2>¡Bienvenido al área de Préstamo de Elementos!</h2>
+    <p>
+      Aquí puedes explorar todos los elementos disponibles que Bienestar al Aprendiz tiene para ti.
+      Si deseas hacer uso de algún elemento, dirígete directamente al área de Bienestar.
+    </p>
+    <p className="ubicacion-destacada">📍 ¡Te esperamos en Bienestar del Aprendiz!</p>
+  </div>
+  <div className="bienvenida-imagen">
+    <img
+      src={bienestar}
+      alt="Ubicación Bienestar"
+      className="ubicacion-elemento"
+    />
+  </div>
+</main>
+
+      </>
   );
 };
 
-export default App;
+export default Alquiler;

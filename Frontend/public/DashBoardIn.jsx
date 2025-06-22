@@ -3,10 +3,10 @@ import MenuLateralIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/Men
 import HomeDash from "../src/pages/DashBoard/HomeDash";
 import ActivBot from "../src/pages/DashBoard/DashBoardComponents/DashA/ActivBot";
 import NavbarIn from "../src/pages/DashBoard/DashBoardComponents/DashIn/NavbarIn";
-import CalendarioAdmin from "../src/pages/CalendarioAdmin/CalendarioAp";
+import CalendarioActividades from "../src/pages/CalendarioAdmin/CalendarioActividades";
 import Feedbacks from "../src/pages/Feedback/Feedbacks";
 import Planificar from "../src/pages/Planificar/Planificar";
-import Registroludicas from "../src/pages/RegistroLudicas/Registroludicas";
+import RegistroActividades from "../src/pages/RegistroActividades/RegistroActividades";
 import Combinar from "../src/pages/CombinarFA/Combinar";
 import Actividades from "../src/pages/Actividades/Actividades";
 import Aplicacion from "../src/pages/Aplicacion/Aplicacion";
@@ -64,7 +64,7 @@ export default function DashBoard() {
         {contenidoActual === "registrarl" && <Registroludicas/>}
         {contenidoActual === "feedback" && <Feedbacks />}
         {contenidoActual === "comprobar" && <Combinar />}
-        {contenidoActual === "calendario" && <CalendarioAdmin />}
+        {contenidoActual === "calendarioactividades" && <CalendarioActividades />}
         {contenidoActual === "aprendiz" && <AprendizRun />}
         {contenidoActual === "planevento" && <PlanificarEvento />}
         {contenidoActual === "registro" && <RegistroA />}
@@ -72,7 +72,7 @@ export default function DashBoard() {
         {contenidoActual === "chromagrid" && <ChromaGrid />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "perfil" && <HomeDash />}
-        {contenidoActual === "registroludicas" && <Registroludicas />}
+        {contenidoActual === "registroactividades" && <RegistroActividades/>}
 
         {contenidoActual === "config" && <ConfigViewIn />}
         {contenidoActual === "alquiler" && <Alquiler />}

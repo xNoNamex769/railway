@@ -4,6 +4,8 @@
 import server from './server';
 import colors from 'colors'; 
 import { db } from './config/db';
+import fs from 'fs';
+import path from 'path';
 
 const PORT = 3001;
 
@@ -16,7 +18,12 @@ async function startServer() {
         // Sincroniza la base de datos
         await db.sync();
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
-
+        
+    const uploadPath = path.join(__dirname, "../uploads");
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath);
+            console.log(colors.yellow("📁 Carpeta 'uploads' creada."));
+        }
         // Inicia el servidor en el puerto fijo 3001
         server.listen(PORT, '0.0.0.0', () => {
             console.log(colors.green.bold(`✅ Servidor escuchando en http://localhost:${PORT}`));

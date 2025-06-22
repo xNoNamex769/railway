@@ -109,7 +109,7 @@ export default function UserView({ setContenidoActual }) {
       </div>
 
       <div className="UserCuadro UserEventos">
-        <h3 className="UserTitulo">Eventos</h3>
+        <h3 className="UserTitulo">Eventos Semanales!</h3>
         <div className="UserTarjetas">
 
           <div className="flip-card-user">

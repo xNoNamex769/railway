@@ -87,20 +87,33 @@ export class AlquilerElementosControllers {
       res.status(500).json({ error: 'Error al obtener alquileres por usuario' });
     }
   };
-
 static registrarDesdeQR = async (req: Request, res: Response) => {
   try {
     const IdUsuario = req.usuario?.IdUsuario;
     const { IdElemento } = req.body;
 
     if (!IdUsuario || !IdElemento) {
-   res.status(400).json({ error: "Faltan datos del usuario o del elemento." });
-   return;
+      res.status(400).json({ error: "Faltan datos del usuario o del elemento." });
+      return;
+    }
+
+    // Validar que no esté ya alquilado sin devolución
+    const yaAlquilado = await AlquilerElementos.findOne({
+      where: {
+        IdUsuario,
+        Elemento: `Elemento ID ${IdElemento}`,
+        FechaDevolucion: null,
+      },
+    });
+
+    if (yaAlquilado) {
+       res.status(400).json({ error: "Este elemento ya está alquilado y no ha sido devuelto." });
+      return;
     }
 
     await AlquilerElementos.create({
       IdUsuario,
-      Elemento: `Elemento ID ${IdElemento}`, // Aquí puedes mejorar si tienes tabla elementos
+      Elemento: `Elemento ID ${IdElemento}`,
       FechaEntrega: new Date(),
       FechaDevolucion: null,
       Observaciones: "Registrado automáticamente desde QR",
@@ -110,6 +123,32 @@ static registrarDesdeQR = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error al registrar desde QR:", error);
     res.status(500).json({ error: "Error interno al registrar el alquiler desde QR." });
+  }
+};
+
+
+static devolverElemento = async (req: Request, res: Response) => {
+  try {
+    const { IdAlquiler } = req.params;
+    const alquiler = await AlquilerElementos.findByPk(IdAlquiler);
+
+    if (!alquiler) {
+      res.status(404).json({ error: "Alquiler no encontrado" });
+      return;
+    }
+
+    if (alquiler.FechaDevolucion) {
+      res.status(400).json({ error: "Este elemento ya fue devuelto" });
+      return;
+    }
+
+    alquiler.FechaDevolucion = new Date();
+    await alquiler.save();
+
+    res.json({ mensaje: "Elemento devuelto exitosamente", alquiler });
+  } catch (error) {
+    console.error("Error al devolver:", error);
+    res.status(500).json({ error: "Error interno al devolver el alquiler" });
   }
 };
 }
