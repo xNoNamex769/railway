@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, HasMany, Default ,AllowNull} from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, Default ,AllowNull,ForeignKey,BelongsTo} from 'sequelize-typescript';
 import { RolUsuario } from './RolUsuario';
 import { AlquilerElementos } from './AlquilerElementos';
 import { Asistencia } from './Asistencia';
@@ -6,6 +6,8 @@ import { Constancia } from './Constancia';
 import { ConsultaIA } from './ConsultaIA';
 import { RelUsuarioEvento } from './RelUsuarioEvento';
 import { RelUsuarioFeedback } from './RelUsuarioFeedback';
+import { SolicitudApoyo } from './SolicitudApoyo';
+
 
 @Table({ tableName: 'Usuario' })
 export class Usuario extends Model {
@@ -15,6 +17,10 @@ export class Usuario extends Model {
 @AllowNull(false)
   @Column({ type: DataType.STRING(50) }) 
   declare IdentificacionUsuario: string;
+    @AllowNull(false)
+  @ForeignKey(() => RolUsuario)
+  @Column
+  declare IdRol: number;
 
 @AllowNull(false)
   @Column({ type: DataType.STRING(100)})
@@ -48,8 +54,8 @@ export class Usuario extends Model {
 })
   declare confirmed: boolean;
 
-  @HasMany(() => RolUsuario)
-  declare rolUsuarios: RolUsuario[];
+@BelongsTo(() => RolUsuario, { as: 'rol' }) //  importante para usarlo en includes
+declare rol: RolUsuario;
 
   @HasMany(() => AlquilerElementos)
   declare alquilerElementos: AlquilerElementos[];
@@ -66,6 +72,11 @@ export class Usuario extends Model {
   @HasMany(() => RelUsuarioEvento)
   declare relUsuarioEventos: RelUsuarioEvento[];
 
+
   @HasMany(() => RelUsuarioFeedback)
   declare relUsuarioFeedbacks: RelUsuarioFeedback[];
+  @HasMany(() => SolicitudApoyo)
+declare solicitudesApoyo: SolicitudApoyo[];
+
+
 }

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import "./styles/HeaderHome.css"
 import TrueFocus from "../../TextAnimations/TrueFocus/TrueFocus";
-import  imagenlogo from "../AlquierAP/img/logo.png"
+import  imagenlogo from "../../../public/img/image.png"
 
 export default function HeaderHome () {
 

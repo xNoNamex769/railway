@@ -24,6 +24,7 @@ import "../src/styles/global.css";
 import "../src/styles/fondo.css";
 import GestionCatalogo from "../src/pages/AlquierAP/GestionFormulario";
 import FormularioCatalogo from "../src/pages/AlquierAP/FormularioCatalogo";
+import Administrador from "../src/pages/SolicitudApoyo/Administrador";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -60,6 +61,7 @@ export default function DashBoard() {
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "config" && <ConfigView />}
         {contenidoActual === "analisisia" && <AnalisisIA />}
+        {contenidoActual === "solicitudapoyo" && <Administrador/>}
          {contenidoActual === "gestioncatalogo" && <GestionCatalogo />}
       {contenidoActual === "formulariocatalogo" && <FormularioCatalogo />}
         {contenidoActual === "perfil" && <HomeDash />}

@@ -1,82 +1,105 @@
 import { Request, Response } from "express";
 import { SolicitudApoyo } from "../models/SolicitudApoyo";
-//quien hizo la peticin y el encargado con su rol
+import { Usuario } from "../models/Usuario";
+import { RolUsuario } from "../models/RolUsuario";
 
-export class SolicitudApoyoController{
-    static getAllSolicitudApoyo = async (req: Request, res:Response) => {
-        try {
-            const SolicitudesApoyos = await SolicitudApoyo.findAll();
-            res.json(SolicitudesApoyos);
-    } catch (error){
-            //console.error(error);
-            res.status(500).json({ error: 'Ocurrio un error' });
-        }
+export class SolicitudApoyoController {
+  static getAllSolicitudApoyo = async (req: Request, res: Response) => {
+    try {
+      console.log(" Entrando a getAllSolicitudApoyo...");
+
+      const solicitudesApoyos = await SolicitudApoyo.findAll({
+        include: [
+          {
+            model: Usuario,
+            attributes: ["Nombre", "Correo"],
+            include: [
+              {
+                model: RolUsuario,
+                attributes: ["NombreRol"],
+                as: "rol", // asegúrate de que esté igual que en el modelo
+              },
+            ],
+          },
+        ],
+      });
+
+      res.json(solicitudesApoyos);
+    } catch (error) {
+      console.error("❌ Error en getAllSolicitudApoyo:", error);
+      res.status(500).json({ error: "Ocurrió un error" });
     }
+  };
 
-    static getSolicitudApoyoId = async (req: Request, res: Response) => {
-        try {
-            const {IdSolicitud } = req.params;
-            const solicitudDelApoyo = await SolicitudApoyo.findOne({
-                where: { IdSolicitud}
-            });
-            if(!solicitudDelApoyo){
-                const error = new Error('Solicitud de apoyo no encontrada');
-                res.status(404).json({ error: error.message });
-                return;
-            }
-            res.json(solicitudDelApoyo)
-        }
-        catch (error){
-            //console.error(error);
-            res.status(500).json({ error: 'Ocurrio un error'});
-        }
+  static getSolicitudApoyoId = async (req: Request, res: Response) => {
+    try {
+      const { IdSolicitud } = req.params;
+      const solicitudDelApoyo = await SolicitudApoyo.findOne({
+        where: { IdSolicitud },
+      });
+
+      if (!solicitudDelApoyo) {
+        res.status(404).json({ error: "Solicitud de apoyo no encontrada" });
+        return;
+      }
+
+      res.json(solicitudDelApoyo);
+    } catch (error) {
+      res.status(500).json({ error: "Ocurrió un error" });
+    }
+  };
+
+ static CrearSolicitudApoyo = async (req: Request, res: Response) => {
+  try {
+    const solicitudDelApoyo = await SolicitudApoyo.create(req.body);
+    res.status(201).json(solicitudDelApoyo); 
+    const { IdUsuario, TipoAyuda, Descripcion, Estado } = req.body;
+
+if (!IdUsuario || !TipoAyuda || !Descripcion || !Estado) {
+  res.status(400).json({ error: "Datos incompletos" });
+  return;
 }
+//  Devolver la solicitud creada
+  } catch (error) {
+    console.error("Error al crear la solicitud:", error);
+    res.status(500).json({ error: "Hubo un error al crear la solicitud de apoyo" });
+  }
+};
 
-    static CrearSolicitudApoyo = async ( req:Request, res:Response) =>{
-        try{
-            const solicituDelApoyo = new SolicitudApoyo(req.body);
-            await solicituDelApoyo.save();
-            res.status(201).json('Solicitud de apoyo creada existosamente');
-        }catch ( error){
-            //console.error('Error al crear solicitud de apoyo', error);
-            res.status(500).json({ error: 'Hubo un error al crear la solicitud de apoyo'})
-        }
-    };
 
-    static actualizarSolicitudAopoyo = async (req: Request, res: Response) =>{
-        try {
-            const { IdSolicitud} = req.params;
-            const solicitudDelApoyo = await SolicitudApoyo.findByPk(IdSolicitud);
+  static actualizarSolicitudAopoyo = async (req: Request, res: Response) => {
+    try {
+      const { IdSolicitud } = req.params;
+      const solicitudDelApoyo = await SolicitudApoyo.findByPk(IdSolicitud);
 
-            if(!solicitudDelApoyo){
-                res.status(404).json({error : 'Solicitud de apoyo no encontrada'})
-                return;
-            }
-            await solicitudDelApoyo.update(req.body);
-            res.json('Solicitud de apoyo actualizada correctamente');
-        }
-        catch (error){
-            console.error('Error al actualizar solicitud de apoyo', error);
-            res.status(500).json({ error: 'Hubo un error al actualizar la solicitud de apoyo' });
-        }
-    };
+      if (!solicitudDelApoyo) {
+        res.status(404).json({ error: "Solicitud de apoyo no encontrada" });
+        return;
+      }
 
-    static eliminarSolicitudApoyo = async ( req: Request, res: Response) => {
-        try {
-            const { IdSolicitud} = req.params;
-            const solicitudDelApoyo = await SolicitudApoyo.findByPk(IdSolicitud);
-
-            if(!solicitudDelApoyo){
-                res.status(404).json(({ error: 'Solicitud de apoyo no encontrada' }));
-                return;
-            }
-              await solicitudDelApoyo.destroy();
-                res.json('Solicitud de apoyo eliminada correctamente');  
-        } catch ( error){
-            console.error('Error al eliminar la solicitud de apoyo', error);
-            res.status(500).json({error: 'Hubo un error al eliminar la solicitud de apoyo' });
-        }
+      await solicitudDelApoyo.update(req.body);
+      res.json("Solicitud de apoyo actualizada correctamente");
+    } catch (error) {
+      console.error("Error al actualizar solicitud de apoyo", error);
+      res.status(500).json({ error: "Hubo un error al actualizar la solicitud de apoyo" });
     }
+  };
 
+  static eliminarSolicitudApoyo = async (req: Request, res: Response) => {
+    try {
+      const { IdSolicitud } = req.params;
+      const solicitudDelApoyo = await SolicitudApoyo.findByPk(IdSolicitud);
 
+      if (!solicitudDelApoyo) {
+       res.status(404).json({ error: "Solicitud de apoyo no encontrada" });
+       return;
+      }
+
+      await solicitudDelApoyo.destroy();
+      res.json("Solicitud de apoyo eliminada correctamente");
+    } catch (error) {
+      console.error("Error al eliminar la solicitud de apoyo", error);
+      res.status(500).json({ error: "Hubo un error al eliminar la solicitud de apoyo" });
+    }
+  };
 }

@@ -17,7 +17,7 @@ router.get(
 router.post(
     "/",
     validateDescripcionSolicitudApoyoYaExiste,
-    validateSolicitudApoyoBody,
+    
     handleInputErrors,
     SolicitudApoyoController.CrearSolicitudApoyo
 );
@@ -25,7 +25,7 @@ router.post(
 router.put(
     "/:IdSolicitud",
     validateIdSolicitudApoyo,
-    validateSolicitudApoyoBody,
+    
     handleInputErrors,
     SolicitudApoyoController.actualizarSolicitudAopoyo
 )

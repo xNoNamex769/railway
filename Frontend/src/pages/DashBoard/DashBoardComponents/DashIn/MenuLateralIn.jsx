@@ -127,7 +127,9 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
                <button onClick={() => setContenidoActual("asistenciasactividad")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Asistencias por Actividad
               </button>
-             
+              <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
+                <FaClipboardList className="iconodash" /> Apoyos
+              </button>
             </>
           )}
         </div>

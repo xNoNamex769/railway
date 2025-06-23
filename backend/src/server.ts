@@ -19,8 +19,10 @@ import  PlanificacionEventoRouter  from './routes/PlanificacionEventoRouter';
 import  RelUsuarioEventoRouter from './routes/RelUsuarioEventoRouter';
 import SolicitudApoyoRouter from './routes/SolicitudApoyoRouter';
 import AnalisisIARouter from './routes/AnalisisIARouter';
+import  HistorialSolicitudRouter from './routes/HistorialSolicitudRouter';
 import analizarComentarioIARouter from './routes/AnalizarComentarioIARouter';
 import path from 'path';
+
 
 
 
@@ -66,6 +68,7 @@ app.use("/api/notificaciones", NotificacionesRouter)
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
 app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
 app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
+app.use("/api/historial", HistorialSolicitudRouter);
 app.use("/api/analisisia", AnalisisIARouter);
 app.use("/api/comentario", analizarComentarioIARouter);
 export default app;

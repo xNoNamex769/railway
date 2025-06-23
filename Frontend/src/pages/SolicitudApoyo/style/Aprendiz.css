@@ -1,0 +1,182 @@
+.panel {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.panel h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.panel p {
+  margin: 0.5rem 0;
+}
+
+.estado-pendiente,
+.estado-aprobado,
+.estado-rechazado {
+  font-weight: bold;
+  padding: 0.25rem 0.6rem;
+  border-radius: 10px;
+  color: white;
+}
+
+.estado-pendiente {
+  background-color: #f39c12;
+}
+
+.estado-aprobado {
+  background-color: #2ecc71;
+}
+
+.estado-rechazado {
+  background-color: #e74c3c;
+}
+
+.historial-container {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.historial-card {
+  background: #f4f6f8;
+  border-left: 5px solid #2980b9;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.historial-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.estado-label {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.estado-label.pendiente {
+  color: #f39c12;
+}
+
+.estado-label.aprobado {
+  color: #2ecc71;
+}
+
+.estado-label.rechazado {
+  color: #e74c3c;
+}
+
+.historial-fecha {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.historial-comentario,
+.historial-atendido {
+  font-size: 0.95rem;
+  color: #333;
+}
+.panel {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.formulario-apoyo {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.formulario-apoyo label {
+  display: block;
+  margin: 10px 0;
+}
+
+.formulario-apoyo select,
+.formulario-apoyo textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.formulario-apoyo button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #3a86ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.historial-container {
+  margin-top: 20px;
+}
+
+.historial-card {
+  background: #fff;
+  border-left: 5px solid #3a86ff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.estado-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.estado-pendiente {
+  color: orange;
+}
+
+.estado-aprobado {
+  color: green;
+}
+
+.estado-rechazado {
+  color: red;
+}
+
+.historial-encabezado {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.botones-acciones {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.botones-acciones button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.botones-acciones .eliminar-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.cancelar-btn {
+  background-color: gray;
+  color: white;
+  margin-left: 10px;
+}

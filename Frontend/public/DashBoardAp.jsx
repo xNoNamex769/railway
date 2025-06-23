@@ -30,6 +30,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import UserViewIn from "../src/pages/UserView/UserViewIn";
+import Aprendiz from "../src/pages/SolicitudApoyo/Aprendiz";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -100,6 +101,7 @@ export default function DashBoard() {
         {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "config" && <ConfigViewAp />}
         {contenidoActual === "escanerqr" && <EscanerQR />}
+          {contenidoActual === "solicitudapoyoaprendiz" && <Aprendiz />}
         {contenidoActual === "calendarioactividades" && <CalendarioActividades />}
         {contenidoActual === "userviewIN" && <UserViewIn setContenidoActual={setContenidoActual} />}
       </main>
