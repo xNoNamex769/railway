@@ -4,9 +4,10 @@ import type { Request, Response } from "express";
 import { Asistencia } from "../models/Asistencia";
 import { Actividad } from "../models/Actividad";
 import { calcularHoras } from "../utils/CalcularHoras";
-
+import { RolUsuario } from "../models/RolUsuario";
 import { Evento } from "../models/Evento";
 import { Usuario } from "../models/Usuario";
+import { Aprendiz } from "../models/Aprendiz";
 
 export class AsistenciaControllers {
   static getAsistenciaAll = async (req: Request, res: Response) => {
@@ -106,39 +107,70 @@ static getHistorialAsistenciaPorUsuario = async (req: Request, res: Response) =>
             IdUsuario,
             IdActividad: actividad.IdActividad,
           },
-          include: [
-            { model: Usuario, as: 'usuario' },
-            { model: Usuario, as: 'RegistradorEntrada' },
-            { model: Usuario, as: 'RegistradorSalida' },
-          ],
+  include: [
+  {
+    model: Usuario,
+    as: 'usuario',
+    attributes: ['IdUsuario', 'Nombre'],
+    include: [
+      {
+        model: RolUsuario,
+        as: 'rol',
+        attributes: ['NombreRol'],
+      },
+      {
+        model: Aprendiz,
+        attributes: ['Ficha', 'ProgramaFormacion', 'Jornada'],
+      },
+    ],
+  },
+  { model: Usuario, as: 'RegistradorEntrada', attributes: ['Nombre'] },
+  { model: Usuario, as: 'RegistradorSalida', attributes: ['Nombre'] },
+],
+
+
         });
         if (!asistencia) return null;
         // Preparar los datos del historial
-        return {
-          actividad: actividad.NombreActi,
-          fecha: actividad.evento?.FechaInicio
-            ? new Date(actividad.evento.FechaInicio).toISOString().split("T")[0]
-            : "Sin fecha",
-          evento: actividad.evento?.NombreEvento || "Sin evento",
+   const aprendizData = asistencia.usuario?.aprendiz;
 
-          entrada: asistencia?.AsiEntrada || false,
-          entradaRegistradaPor: asistencia?.RegistradorEntrada?.Nombre || "---",
-          entradaHora: asistencia?.AsiHoraEntrada
-            ? new Date(asistencia.AsiHoraEntrada).toLocaleString("es-CO")
-            : "---",
+console.log({
+  nombre: asistencia.usuario?.Nombre,
+  rol: asistencia.usuario?.rol?.NombreRol,
+  aprendizData,
+});
 
-          salida: asistencia?.QRSalida ? true : false,
-          salidaRegistradaPor: asistencia?.RegistradorSalida?.Nombre || "---",
-          salidaHora:
-            asistencia?.QRSalida && !isNaN(new Date(asistencia.QRSalida).getTime())
-              ? new Date(asistencia.QRSalida).toLocaleString("es-CO")
-              : "---",
 
-          estado:
-            asistencia?.AsiEntrada && asistencia?.QRSalida
-              ? "Completa"
-              : "Incompleta",
-        };
+return {
+  actividad: actividad.NombreActi,
+  fecha: actividad.evento?.FechaInicio
+    ? new Date(actividad.evento.FechaInicio).toISOString().split("T")[0]
+    : "Sin fecha",
+  evento: actividad.evento?.NombreEvento || "Sin evento",
+
+  ficha: aprendizData?.Ficha || "---",
+  programa: aprendizData?.ProgramaFormacion || "---",
+  jornada: aprendizData?.Jornada || "---",
+
+  entrada: asistencia?.AsiEntrada || false,
+  entradaRegistradaPor: asistencia?.RegistradorEntrada?.Nombre || "---",
+  entradaHora: asistencia?.AsiHoraEntrada
+    ? new Date(asistencia.AsiHoraEntrada).toLocaleString("es-CO")
+    : "---",
+
+  salida: asistencia?.QRSalida ? true : false,
+  salidaRegistradaPor: asistencia?.RegistradorSalida?.Nombre || "---",
+  salidaHora:
+    asistencia?.QRSalida && !isNaN(new Date(asistencia.QRSalida).getTime())
+      ? new Date(asistencia.QRSalida).toLocaleString("es-CO")
+      : "---",
+
+  estado:
+    asistencia?.AsiEntrada && asistencia?.QRSalida
+      ? "Completa"
+      : "Incompleta",
+};
+
       })
     );
     const historialFiltrado = historial.filter((item) => item !== null);
@@ -150,45 +182,61 @@ static getHistorialAsistenciaPorUsuario = async (req: Request, res: Response) =>
   }
 };
 
+
+
+
 static registrarDesdeQR = async (req: Request, res: Response) => {
   try {
+    console.log("TOKEN USUARIO:", req.usuario);
+
+    // Validar que el usuario esté autenticado y exista en req.usuario
     const IdUsuario = req.usuario?.IdUsuario;
-    const { IdActividad, tipo } = req.body;
-
-    const idRegistrador = IdUsuario;
-
-    if (!IdUsuario || !IdActividad || !tipo) {
-      res.status(400).json({ error: "Faltan datos del QR o del token." });
-      return;
+    if (!IdUsuario) {
+     res.status(401).json({ error: "No autenticado" });
+     return;
     }
 
+    const { IdActividad, tipo } = req.body;
+
+    // Validar que lleguen los datos necesarios
+    if (!IdActividad || !tipo || (tipo !== "entrada" && tipo !== "salida")) {
+    res.status(400).json({ error: "Faltan datos o tipo inválido." });
+    return;
+    }
+
+    // Validar que el usuario exista en la base de datos
     const usuario = await Usuario.findByPk(IdUsuario);
     if (!usuario) {
       res.status(404).json({ error: "Usuario no encontrado" });
       return;
     }
 
+    // Aquí podrías validar que el usuario esté autorizado para esta actividad
+
+    // Buscar si ya hay registro de asistencia para esta actividad y usuario
     let asistencia = await Asistencia.findOne({
       where: { IdUsuario, IdActividad },
     });
 
-    // Si no existe la asistencia, se crea
+    const ahora = new Date();
+
     if (!asistencia) {
+      // No existe, crear nuevo registro según tipo
       asistencia = await Asistencia.create({
         IdUsuario,
         IdActividad,
         tipo,
-        AsiFecha: new Date(),
-        QREntrada: tipo === "entrada" ? new Date() : null,
-        QRSalida: tipo === "salida" ? new Date() : null,
-        IdRegistradorEntrada: tipo === "entrada" ? idRegistrador : null,
-        IdRegistradorSalida: tipo === "salida" ? idRegistrador : null,
-        AsiEntrada: tipo === "entrada",
-        AsiHoraEntrada: tipo === "entrada" ? new Date() : null,
+        AsiFecha: ahora,
         AsiEstado: tipo === "entrada" ? "Incompleta" : null,
+        AsiEntrada: tipo === "entrada",
+        AsiHoraEntrada: tipo === "entrada" ? ahora : null,
+        QREntrada: tipo === "entrada" ? ahora : null,
+        QRSalida: tipo === "salida" ? ahora : null,
+        IdRegistradorEntrada: tipo === "entrada" ? IdUsuario : null,
+        IdRegistradorSalida: tipo === "salida" ? IdUsuario : null,
       });
 
-      res.status(201).json({
+       res.status(201).json({
         mensaje: `✅ ${tipo === "entrada" ? "Entrada" : "Salida"} registrada para ${usuario.Nombre}`,
         asistencia,
         usuario: {
@@ -199,68 +247,58 @@ static registrarDesdeQR = async (req: Request, res: Response) => {
       return;
     }
 
-    // Ya existe la asistencia, actualizar
+    // Ya existe la asistencia, actualizarla según el tipo
+
     if (tipo === "entrada") {
       if (asistencia.QREntrada) {
-        res.status(400).json({ error: "⚠️ Ya existe una entrada registrada para este usuario." });
-        return;
+         res.status(400).json({ error: "⚠️ Ya existe una entrada registrada para este usuario." });
+         return;
       }
-
-      asistencia.QREntrada = new Date();
+      asistencia.QREntrada = ahora;
       asistencia.AsiEntrada = true;
-      asistencia.AsiHoraEntrada = new Date();
-     if (typeof idRegistrador === 'number') {
-  asistencia.IdRegistradorEntrada = idRegistrador;
-}
-
+      asistencia.AsiHoraEntrada = ahora;
+      asistencia.IdRegistradorEntrada = IdUsuario;
       asistencia.AsiEstado = "Incompleta";
 
     } else if (tipo === "salida") {
       if (!asistencia.QREntrada) {
-        res.status(400).json({ error: "⚠️ Debes registrar entrada antes de la salida." });
-        return;
+         res.status(400).json({ error: "⚠️ Debes registrar entrada antes de la salida." });
+         return;
       }
-
       if (asistencia.QRSalida) {
-        res.status(400).json({ error: "⚠️ Ya existe una salida registrada para este usuario." });
-        return;
+       res.status(400).json({ error: "⚠️ Ya existe una salida registrada para este usuario." });
+       return;
       }
+      asistencia.QRSalida = ahora;
+      asistencia.IdRegistradorSalida = IdUsuario;
 
-      asistencia.QRSalida = new Date();
-     if (typeof idRegistrador === 'number') {
-  asistencia.IdRegistradorSalida = idRegistrador;
-}
-
-
+      // Calcular horas asistidas
       const entrada = new Date(asistencia.QREntrada);
       const salida = new Date(asistencia.QRSalida);
       asistencia.AsiHorasAsistidas = calcularHoras(entrada, salida);
-      asistencia.AsiEstado = "Completa";
 
-    } else {
-      res.status(400).json({ error: "Tipo inválido (entrada o salida)" });
-      return;
+      asistencia.AsiEstado = "Completa";
     }
 
     await asistencia.save();
 
-    res.status(200).json({
+     res.status(200).json({
       mensaje: `✅ ${tipo === "entrada" ? "Entrada registrada" : "Salida registrada y asistencia completa"}`,
       asistencia,
       usuario: {
         IdUsuario: usuario.IdUsuario,
         Nombre: usuario.Nombre,
       },
+      
     });
-    return;
+     return;
 
   } catch (error) {
     console.error("❌ Error en registrarDesdeQR:", error);
-    res.status(500).json({ error: "Error al registrar asistencia desde QR" });
-    return;
+     res.status(500).json({ error: "Error al registrar asistencia desde QR" });
+     return;
   }
 };
-
 
 static obtenerAsistenciasPorActividad = async (req: Request, res: Response) => {
   try {
@@ -276,29 +314,39 @@ static obtenerAsistenciasPorActividad = async (req: Request, res: Response) => {
       include: [
         {
           model: Usuario,
-          as: "usuario", // alias definido en relaciones
-          attributes: ["IdUsuario", "Nombre", "Correo"]
+          as: "usuario",
+          attributes: ["IdUsuario", "Nombre", "Apellido", "Correo"],
+          include: [
+            {
+              model: RolUsuario,
+              as: "rol",
+              attributes: ["NombreRol"],
+            },
+            {
+              model: Aprendiz,
+              as: "aprendiz",
+              attributes: ["Ficha", "ProgramaFormacion", "Jornada"],
+            },
+          ],
         },
         {
           model: Usuario,
           as: "RegistradorEntrada",
-          attributes: ["IdUsuario", "Nombre"]
+          attributes: ["IdUsuario", "Nombre"],
         },
         {
           model: Usuario,
           as: "RegistradorSalida",
-          attributes: ["IdUsuario", "Nombre"]
-        }
+          attributes: ["IdUsuario", "Nombre"],
+        },
       ],
-      order: [["AsiFecha", "ASC"]]
+      order: [["AsiFecha", "ASC"]],
     });
 
     res.status(200).json(asistencias);
-    return;
   } catch (error) {
     console.error("❌ Error al obtener asistencias:", error);
     res.status(500).json({ error: "Error al obtener asistencias por actividad." });
-    return;
   }
 };
 }

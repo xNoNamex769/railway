@@ -70,7 +70,13 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-router.post('/catalogo', upload.single('imagen'), CatalogoController.subirElemento);
+router.post('/catalogo', upload.single('imagen'), (req, res) => {
+  const io = req.app.get('io'); // debe estar seteado en app.ts
+  (req as any).io = io; // inyectamos manualmente
+  CatalogoController.subirElemento(req as any, res);
+});
+
+
 router.get('/catalogo', CatalogoController.getCatalogo);
 router.put(
   '/catalogo/:IdAlquiler/imagen',

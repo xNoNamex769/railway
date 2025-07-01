@@ -1,6 +1,6 @@
 import React from 'react'
 import "./styles/ChatComponent.css"
-import ChatImg from "./img/chat-icon.svg"
+import ChatImg from "./img/robotica.png"
 
 export default function ChatComponent() {
   return (

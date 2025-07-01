@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./style/FormularioCatalogo.css"; 
+import io from "socket.io-client";
+import "./style/FormularioCatalogo.css";
+
+const socket = io("http://localhost:3001"); // ⚠️ Cambia la IP si usas otra
+
 const FormularioCatalogo = () => {
   const [nombre, setNombre] = useState("");
   const [imagen, setImagen] = useState(null);
   const [mensaje, setMensaje] = useState("");
-const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,13 +25,21 @@ const [preview, setPreview] = useState(null);
 
     try {
       await axios.post("http://localhost:3001/api/alquilerelementos/catalogo", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
+
+      // 🔔 Emitimos notificación por socket
+      socket.emit("nuevaNotificacion", {
+        titulo: "📦 Nuevo elemento agregado al catálogo",
+        mensaje: `Se añadió "${nombre}" como nuevo recurso disponible para alquiler.`,
+        tipo: "catalogo",
+        fecha: new Date(),
+      });
+
       setMensaje("Elemento subido exitosamente al catálogo.");
       setNombre("");
       setImagen(null);
+      setPreview(null);
     } catch (error) {
       console.error("Error al subir elemento:", error);
       setMensaje("Hubo un error al subir el elemento.");
@@ -44,28 +56,27 @@ const [preview, setPreview] = useState(null);
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
+
         <input
           type="file"
           accept="image/*"
-       onChange={(e) => {
-  const file = e.target.files[0];
-  setImagen(file);
-  if (file) {
-    setPreview(URL.createObjectURL(file));
-  } else {
-    setPreview(null);
-  }
-}}
+          onChange={(e) => {
+            const file = e.target.files[0];
+            setImagen(file);
+            setPreview(file ? URL.createObjectURL(file) : null);
+          }}
+        />
 
-        />{preview && (
-  <div className="preview-container">
-    <p>Vista previa de la imagen:</p>
-    <img src={preview} alt="preview" className="preview-imagen" />
-  </div>
-)}
+        {preview && (
+          <div className="preview-container">
+            <p>Vista previa de la imagen:</p>
+            <img src={preview} alt="preview" className="preview-imagen" />
+          </div>
+        )}
 
         <button type="submit">Subir elemento</button>
       </form>
+
       {mensaje && <p>{mensaje}</p>}
     </div>
   );

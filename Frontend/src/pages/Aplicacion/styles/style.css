@@ -11,7 +11,7 @@ body.evento-app-body {
 .evento-app-contenedor-principal {
   display: flex;
   min-height: 100vh;
-  background-color: #eaf0f6;
+  background-color: #ffffff;
 }
 
 /* Contenido Principal */
@@ -83,7 +83,7 @@ body.evento-app-body {
   height: 130px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #2ecc71;
+  border: 3px solid #3edb0e;
   padding: 4px;
   background-color: #fff;
   transition: border-color 0.3s ease;
@@ -105,7 +105,7 @@ body.evento-app-body {
 }
 
 .evento-app-boton-accion {
-  background-color: #273c75;
+  background-color: #2111b3;
   color: #fff;
   padding: 12px 24px;
   border: none;
@@ -116,7 +116,7 @@ body.evento-app-body {
 }
 
 .evento-app-boton-accion:hover {
-  background-color: #44bd32;
+  background-color: #3edb0e;
 }
 
 /* Feed de Eventos */
@@ -132,7 +132,7 @@ body.evento-app-body {
 
 .evento-app-tarjeta-evento {
   background-color: #ffffff;
-  border-left: 6px solid #0984e3;
+  border-left: 6px solid #097ae3;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.07);
   padding: 20px;
@@ -169,7 +169,7 @@ body.evento-app-body {
 
 .evento-app-fecha-evento {
   font-size: 13px;
-  color: #7f8c8d;
+  color: #030303;
   margin: 0;
 }
 
@@ -235,7 +235,7 @@ body.evento-app-body {
   padding: 10px;
   font-size: 14px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffffff;
   resize: none;
 }
 

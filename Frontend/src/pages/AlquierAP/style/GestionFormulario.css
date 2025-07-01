@@ -168,3 +168,125 @@
 .item-catalogo button:last-of-type:hover {
   background-color: #fddddd;
 }
+/* 🎨 Estilo general del contenedor */
+.gestion-catalogo {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 40px 30px;
+  background: linear-gradient(to bottom, #ffffff, #f6f9fc);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* 🧭 Título y subtítulo centrado */
+.gestion-catalogo h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.gestion-catalogo p {
+  text-align: center;
+  font-size: 1rem;
+  color: #3498db;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+/* 📦 Lista de elementos tipo grid */
+.lista-elementos {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* 🧱 Estilo de cada item */
+.item-catalogo {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.item-catalogo:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+/* 🖼️ Imagen principal del ítem */
+.item-catalogo img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+/* 🧾 Texto descriptivo */
+.item-catalogo h4 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.item-catalogo p {
+  font-size: 1rem;
+  color: #34495e;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+/* 📁 Input para subir archivo */
+.item-catalogo input[type="file"] {
+  display: block;
+  margin: 12px auto;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border: 2px dashed #bbb;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.item-catalogo input[type="file"]:hover {
+  background-color: #eafaf9;
+}
+
+/* 🔘 Botones de acción */
+.item-catalogo button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* ✅ Botón principal */
+.item-catalogo button:first-of-type {
+  background-color: #3edb0e;
+  color: white;
+}
+
+.item-catalogo button:first-of-type:hover {
+  background-color: #0e3edb;
+}
+
+/*  Botón de eliminar o cancelar */
+.item-catalogo button:last-of-type {
+  background-color: #fef0f0;
+  color: #e74c3c;
+}
+
+.item-catalogo button:last-of-type:hover {
+  background-color: #fde2e2;
+}

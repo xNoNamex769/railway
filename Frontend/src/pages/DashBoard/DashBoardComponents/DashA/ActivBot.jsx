@@ -1,11 +1,12 @@
 // src/components/ActivBot.jsx
-import { FaRobot } from "react-icons/fa";
+import logoia from "../../../Home/img/robotica.png"
 import React from "react";
 
 export default function ActivBot({ irAChatai }) {
   return (
-    <button onClick={irAChatai} className="activbot">
-      <FaRobot className="activbot-icon" />
+    
+    <button onClick={irAChatai} className="activbot" >
+     <img src={logoia} alt=""  width={90}/>
     </button>
   );
 }

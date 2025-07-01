@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import './styles/ComtentarStyle.css';
 import axios from 'axios';
-import dbz2 from './img/dbz2.jpeg';
-import dbz3 from './img/dbz3.jpg';
-import dbz4 from './img/dbz4.jpg';
-import { useIA } from "../AnalisisIA/IAcontext"; // Ajusta esta ruta si tu IAContext está en otro lado
+
+import dbz4 from '../../../public/img/dragon.jpeg'; //
+
+import { useIA } from "../AnalisisIA/IAcontext";
 
 export default function ComentarFeedback() {
   const [usuarios, setUsuarios] = useState([
-    { name: "Pepe Gorra", imagen: dbz2, comentarios: "Excelente", reseñas: "★★★★★" },
-    { name: "Juan Pérez", imagen: dbz3, comentarios: "Casi no me gustó, faltó emoción", reseñas: "★☆☆☆☆" },
+    { name: "Pepe Gorra", imagen: dbz4, comentarios: "Excelente", reseñas: "★★★★★" },
+    { name: "Juan Pérez", imagen: dbz4, comentarios: "Casi no me gustó, faltó emoción", reseñas: "★☆☆☆☆" },
     { name: "Ana López", imagen: dbz4, comentarios: "Me gustó", reseñas: "★★★☆☆" }
   ]);
 
   const [nuevoComentario, setNuevoComentario] = useState("");
-  const { setRecargarAnalisis } = useIA(); // Para forzar recarga del análisis inteligente
+  const { setRecargarAnalisis } = useIA();
 
   const agregarComentario = async () => {
     if (nuevoComentario.trim() === "") return;
 
     try {
-      // 👇 Ajusta ID según el usuario y evento real
       const response = await axios.post("http://localhost:3001/api/comentario/comentario", {
         comentario: nuevoComentario,
         IdUsuario: 1,
@@ -40,7 +39,7 @@ export default function ComentarFeedback() {
       ]);
 
       setNuevoComentario("");
-      setRecargarAnalisis(prev => !prev); // 🔁 Fuerza recarga de resumen IA
+      setRecargarAnalisis(prev => !prev);
     } catch (error) {
       console.error("❌ Error enviando comentario con IA:", error);
     }

@@ -6,7 +6,7 @@
   background-color: #111827;
   position: relative;
   overflow: hidden;
-  margin-top: 118px;
+  margin-top: 129px;
     background-image: url("../img/img.jpg"); /*Aqui va la imagen del  fondo*/
 }
 
@@ -100,7 +100,7 @@
 }
 
 .boton-cambio-formulario {
-  color: #10b981;
+  color: #176cec;
   font-weight: 500;
   font-size: 0.875rem;
   background: none;
@@ -114,7 +114,7 @@
 }
 
 .boton-cambio-formulario:hover {
-  color: #059669;
+  color: #15f327;
 }
 /* Media queries para responsive */
 @media (min-width: 768px) {

@@ -1,81 +1,85 @@
 import { Request, Response } from "express";
-import { Notificaciones } from "../models/Notificaciones"
-// notificaciones a cada usuario , sobre , actividades , ludicas , eventos , o solicitues de apoyo
-export class NotificacionesController {
+import { Notificaciones } from "../models/Notificaciones";
 
-    static getNotificacionesAll = async (req: Request, res: Response) => {
-        try {
-            const notificaciones = await Notificaciones.findAll({
-                order: [['FechaDeEnvio', 'ASC']],
-            });
-            res.json(notificaciones);
-        } catch (error) {
-            console.error('Error al obtener notificaciones:', error);
-            res.status(500).json({ error: 'Hubo un error al obtener las notificaciones' });
-        }
-    };
+export class NotificacionController {
+  // ✅ Crear notificación
+  static async crear(req: Request, res: Response) {
+    try {
+      const {
+        Titulo,
+        Mensaje,
+        TipoNotificacion,
+        FechaDeEnvio,
+        IdEvento,
+        IdUsuario,
+      } = req.body;
 
-    static getIdNotificacion= async (req: Request, res: Response) => {
-        try {
-            const { IdNotificacion } = req.params;
-            const notificacion = await Notificaciones.findByPk(IdNotificacion);
+      const nueva = await Notificaciones.create({
+        Titulo,
+        Mensaje,
+        TipoNotificacion,
+        FechaDeEnvio,
+        IdEvento,
+        IdUsuario,
+      });
 
-            if (!notificacion) {
-             res.status(404).json({ error: 'Notificación no encontrada' });
-             return;
-            }
+      res.status(201).json({
+        msg: "Notificación creada",
+        notificacion: nueva,
+      });
+    } catch (error) {
+      console.error("❌ Error al crear notificación:", error);
+      res.status(500).json({ error: "Error al crear notificación" });
+    }
+  }
 
-            res.json(notificacion);
-        } catch (error) {
-            console.error('Error al obtener la notificación:', error);
-            res.status(500).json({ error: 'Hubo un error al buscar la notificación' });
-        }
-    };
+  // ✅ Obtener todas las notificaciones de un usuario
+ static async listarPorUsuario(req: Request, res: Response) {
+  try {
+    const { idUsuario } = req.params;
 
-    static crearNotificacion = async (req: Request, res: Response) => {
-        try {
-            const notificacion = new Notificaciones(req.body);
-            await notificacion.save();
-            res.status(201).json('Notificación creada exitosamente');
-        } catch (error) {
-            console.error('Error al crear la notificación:', error);
-            res.status(500).json({ error: 'Hubo un error al crear la notificación' });
-        }
-    };
+    const notificaciones = await Notificaciones.findAll({
+      where: { IdUsuario: idUsuario },
+      order: [["createdAt", "DESC"]],
+      attributes: [
+        "IdNotificacion",
+        "Titulo",
+        "Mensaje",
+        "TipoNotificacion",
+        "FechaDeEnvio",
+        "Confirmado",
+        "RutaDestino",   // ✅ importante
+        "imagenUrl"      // ✅ importante
+      ],
+    });
 
-    static actualizarIdNotificacion = async (req: Request, res: Response) => {
-        try {
-            const { IdNotificacion } = req.params;
-            const notificacion = await Notificaciones.findByPk(IdNotificacion);
+    res.json(notificaciones);
+  } catch (error) {
+    console.error("❌ Error al listar notificaciones:", error);
+    res.status(500).json({ error: "Error al listar notificaciones" });
+  }
+}
 
-            if (!notificacion) {
-                 res.status(404).json({ error: 'Notificación no encontrada' });
-                 return;
-            }
 
-            await notificacion.update(req.body);
-            res.json('Notificación actualizada correctamente');
-        } catch (error) {
-            console.error('Error al actualizar la notificación:', error);
-            res.status(500).json({ error: 'Hubo un error al actualizar la notificación' });
-        }
-    };
+  // ✅ Marcar como confirmada
+ // ✅ Marcar como confirmada
+static async confirmar(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
 
-    static eliminarIdNotificacion = async (req: Request, res: Response) => {
-        try {
-            const { IdNotificacion } = req.params;
-            const notificacion = await Notificaciones.findByPk(IdNotificacion);
+    const noti = await Notificaciones.findByPk(id);
+    if (!noti) {
+    res.status(404).json({ error: "No encontrada" });
+    return;
+    }
 
-            if (!notificacion) {
-                res.status(404).json({ error: 'Notificación no encontrada' });
-                return;
-            }
+    noti.Confirmado = true;
+    await noti.save();
 
-            await notificacion.destroy();
-            res.json('Notificación eliminada correctamente');
-        } catch (error) {
-            console.error('Error al eliminar la notificación:', error);
-            res.status(500).json({ error: 'Hubo un error al eliminar la notificación' });
-        }
-    };
+    res.json({ msg: "Notificación confirmada ✅" });
+  } catch (error) {
+    console.error("❌ Error al confirmar:", error);
+    res.status(500).json({ error: "Error al confirmar" });
+  }
+}
 }

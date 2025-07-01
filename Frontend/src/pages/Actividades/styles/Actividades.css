@@ -1,296 +1,442 @@
+/* Actividades.css */
 
-.body-actividades {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f4f8;
-    margin: 0;
-  
-    padding: 0;
-  }
-  
-  .contenedor-sena {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
- 
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cabecera {
-    text-align: center;
-    color: #333;
-    font-size: 36px;
-    font-weight: 700;
-    
-    margin-bottom: 40px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .actividad-parrafo{
-    color: white;
-  }
-  
-  /* Barra de Búsqueda */
-  .search-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-fields {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .search-fields input {
-    padding: 12px;
-    font-size: 14px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    width: 220px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    
-  }
-  
-  .search-fields input:focus {
-    border-color: #1E90FF;
-    outline: none;
-  }
-  
-  .search-button {
-    padding: 12px 30px;
-    background-color: #1E90FF;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .search-button:hover {
-    background-color: #4682B4;
-  }
-  
-  /* Galería de Actividades */
-  .galeria-actividades {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  /* Tarjetas */
-  .tarjeta {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  
-  .tarjeta:hover {
-    transform: scale(1.05);
-  }
-  
-  .imagen-principal {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: all 0.3s ease;
-  }
-  
-  .nuevo-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-  }
-  
-  .logo-flotante {
-    position: absolute;
-    bottom: 10px;
- 
-    width: 270px;
-    height: 90px;
-    object-fit: contain;
-    
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .tarjeta:hover .logo-flotante {
-    opacity: 1;
-  }
-  
-  /* Estilo del Parrafo y Agenda */
-  .parrafo {
-    background: radial-gradient(circle, rgb(44, 241, 60), #11f583, rgba(31, 190, 79, 0.733));
-    color: #faf5f5;
-    width: 1000px;
-    height: 60px;
-    text-align: center;
-    padding: 20px;
-    margin: 30px auto;
-    border-radius: 100px;
-    font-size: 20px;
-  }
-  
-  .agenda {
-    width: 300px;
-    height: 60px;
-    color: rgb(16, 17, 17);
-    border-radius: 30px;
-    background-color: #00ff7f;
-   
-    text-align: center;
-    line-height: 60px;
-    font-size: 18px;
-  }
-  
-  /* Fondo de la Imagen */
-  .tarjeta img:first-child {
-    box-shadow: 0 60px 60px -60px rgba(0, 30, 255, 0.5);
-    border-radius: 4px;
-    object-fit: cover;
-    width: 100%;
-  }
-  
-  /* Efectos al pasar el ratón por encima */
-  .tarjeta img:last-child {
-    position: absolute;
-    width: 300px;
-    height: 80px;
-    margin-right: 300px;
-    
-   
-    transform: translateY(25%);
-    opacity: 0;
-    transition: 0.3s ease;
-  }
-  
-  .tarjeta:hover img:last-child {
-    opacity: 1;
-    transform: translateY(10%);
-    width: 300px;
-  }
-  
-  .tarjeta::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    background-image: linear-gradient(to bottom, transparent 10%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0) 95%);
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-  
-  .tarjeta:hover::before {
-    opacity: 1;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .search-fields {
-      flex-direction: column;
-      gap: 15px;
-    }
-  
-    .search-fields input {
-      width: 100%;
-    }
-  
-    .search-button {
-      width: 100%;
-    }
-  
-    .tabla-alquiler th,
-    .tabla-alquiler td {
-      font-size: 14px;
-      padding: 12px;
-    }
-  }
-  
-  .contenedor-sena {
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f6fa;
-  color: #2f3640;
+/* 🎯 Estilos globales */
+.actividades-body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
 }
 
-.cabecera {
-  text-align: center;
-  margin-bottom: 1.5rem;
+/* 🧭 Contenedor principal */
+.actividades-main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
 }
 
-.actividad-parrafo {
-  font-size: 2.5rem;
-  color: #0984e3;
-  margin-bottom: 0.5rem;
+/* 📢 Encabezado */
+.actividades-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.descripcion {
-  font-size: 1.1rem;
-  color: #636e72;
-}
-
-.introduccion {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.parrafo {
-  font-size: 1.8rem;
-  font-weight: 600;
+.actividades-title-section {
+  font-size: 2.4rem;
+  font-weight: 700;
   color: #2d3436;
 }
 
-.agenda {
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #0a0a0a;
+/* 📸 Carrusel de historias */
+.actividades-historias-section {
+  margin-bottom: 30px;
 }
 
-.galeria-actividades {
+.actividades-historias-scroll {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.actividades-historia {
+  flex: 0 0 auto;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.actividades-historia:hover {
+  transform: scale(1.05);
+}
+
+.actividades-historia img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #1abc9c;
+  padding: 3px;
+  background-color: #fff;
+}
+
+.actividades-historia p {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 🎯 Botones de acción */
+.actividades-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.actividades-boton {
+  background-color: #273c75;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actividades-boton:hover {
+  background-color: #44bd32;
+}
+
+/* 📅 Lista de actividades */
+.actividades-feed-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.actividades-card {
+  background-color: white;
+  border-left: 6px solid #00a8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.actividades-card:hover {
+  transform: translateY(-4px);
+}
+
+.actividades-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.actividades-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.actividades-info-usuario {
+  flex: 1;
+}
+
+.actividades-nombre-usuario {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+}
+
+.actividades-fecha-evento {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.actividades-contenido img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.actividades-descripcion {
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+/* ✍️ Feedback */
+.actividades-feedback {
+  margin-top: 15px;
+}
+
+.actividades-feedback textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-size: 14px;
+}
+
+.actividades-feedback button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #e74c3c;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.actividades-feedback button:hover {
+  background-color: #c0392b;
+}
+
+/* 🎨 Scroll personalizado */
+.actividades-historias-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.actividades-historias-scroll::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+.actividades-galeria {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  gap: 20px;
+  padding: 20px;
 }
 
-.tarjeta {
-  position: relative;
-  border-radius: 16px;
+.actividades-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
-.tarjeta:hover {
-  transform: translateY
+.actividades-card:hover {
+  transform: translateY(-4px);
+}
+
+.actividades-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 2px solid #eee;
+}
+
+.actividades-info {
+  padding: 15px;
+  font-size: 15px;
+  color: #333;
+}
+
+.actividades-info h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+/* ================== GENERAL ================== */
+.actividades-contenedor {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fa;
+  padding: 30px;
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+.actividades-cabecera {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.actividades-titulo {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #273c75;
+}
+
+.actividades-descripcion {
+  font-size: 1.2rem;
+  color: #636e72;
+}
+
+/* ================== HISTORIAS ================== */
+.actividades-historias {
+  margin-bottom: 30px;
+}
+
+.historias-titulo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2d3436;
+}
+
+.historias-contenedor {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.historia {
+  flex: 0 0 auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+.historia-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #0984e3;
+  padding: 3px;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.historia-img:hover {
+  transform: scale(1.05);
+}
+
+.historia-nombre {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2f3640;
+}
+
+/* ================== GALERÍA DE ACTIVIDADES ================== */
+.actividades-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.actividades-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.actividades-card:hover {
+  transform: translateY(-5px);
+}
+
+.actividades-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.actividades-info {
+  padding: 15px;
+}
+
+.actividades-info h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #0984e3;
+}
+
+.actividades-info p {
+  font-size: 0.95rem;
+  margin-top: 5px;
+  color: #2d3436;
+}
+
+/* ================== MODAL ================== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  object-fit: cover;
+  max-height: 250px;
+}
+
+/* ================== FEEDBACK ================== */
+.btn-feedback {
+  background-color: #44bd32;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.feedback-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.feedback-buttons button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #0984e3;
+  color: white;
+}
+
+.feedback-buttons button:last-child {
+  background-color: #b2bec3;
+}
+
+/* ================== MENSAJE VACÍO ================== */
+.actividades-vacio {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  color: #636e72;
 }
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -298,42 +444,174 @@
 }
 
 .modal-content {
-  background: white;
-  border-radius: 12px;
+  background-color: #fff;
   padding: 2rem;
-  width: 90%;
+  border-radius: 1rem;
   max-width: 600px;
+  width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 1.8rem;
-  border: none;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
   background: none;
+  border: none;
   cursor: pointer;
-  font-weight: bold;
   color: #333;
-  transition: color 0.2s ease;
 }
 
-.modal-close:hover {
-  color: #e74c3c;
+.modal-img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 }
+
+.qr-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.qr-section img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+}
+
+.feedback-form {
+  margin-top: 1.5rem;
+}
+
+.feedback-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  resize: vertical;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.feedback-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
 .btn-feedback {
-  background-color: #0984e3;
+  margin-top: 1rem;
+  background-color: #0d6efd;
   color: white;
+  padding: 0.6rem 1.2rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .btn-feedback:hover {
-  background-color: #74b9ff;
+  background-color: #084cba;
+}
+/* --- Estilos para el modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.modal-img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* --- QR Section --- */
+.qr-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.qr-section img {
+  width: 140px;
+  height: 140px;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  padding: 0.5rem;
+}
+
+/* --- Feedback --- */
+.feedback-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  resize: vertical;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.feedback-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-feedback {
+  margin-top: 1rem;
+  background-color: #0d6efd;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-feedback:hover {
+  background-color: #084cba;
 }

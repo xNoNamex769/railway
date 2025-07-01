@@ -107,6 +107,9 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
                <button onClick={() => setContenidoActual("chromagrid")} className="opciondash">
                 <FaThumbsUp className="iconodash" /> Aprobados
               </button>
+                <button onClick={() => setContenidoActual("misactividades")} className="opciondash">
+                <FaThumbsUp className="iconodash" /> mis actividades
+              </button>
             </>
           )}
         </div>

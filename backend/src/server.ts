@@ -22,7 +22,9 @@ import AnalisisIARouter from './routes/AnalisisIARouter';
 import  HistorialSolicitudRouter from './routes/HistorialSolicitudRouter';
 import analizarComentarioIARouter from './routes/AnalizarComentarioIARouter';
 import path from 'path';
-
+import NotiPruebaRouter from "./routes/NotiPruebaRouter";
+import  ResumenEventoIARouter from './routes/ResumenEventoIARouter';
+import tokenTestRouter from './routes/TokenTestRouter'; 
 
 
 
@@ -65,10 +67,14 @@ app.use('/api/rolusuario', RolUsuarioRouter)
 app.use("/api/usuario", UsuarioRouter)
 app.use("/api/feedback", FeedbackRouter)
 app.use("/api/notificaciones", NotificacionesRouter)
+app.use('/api/test-token', tokenTestRouter); 
 app.use("/api/planificacionevento", PlanificacionEventoRouter)
 app.use("/api/relusuarioevento", RelUsuarioEventoRouter)
 app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
 app.use("/api/historial", HistorialSolicitudRouter);
+
+app.use("/api/prueba-socket", NotiPruebaRouter);
 app.use("/api/analisisia", AnalisisIARouter);
+app.use("/api/resumenia", ResumenEventoIARouter);
 app.use("/api/comentario", analizarComentarioIARouter);
 export default app;

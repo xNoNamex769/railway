@@ -1,77 +1,127 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./style/Instructor.css"
-
-import {jwtDecode} from 'jwt-decode';
+import "./style/Instructor.css";
+import { jwtDecode } from 'jwt-decode';
 
 const obtenerIdInstructor = () => {
   const token = localStorage.getItem('token');
   if (!token) return null;
 
   const decoded = jwtDecode(token);
-  return decoded.IdUsuario; // asegúrate que este campo existe en el token
+  return decoded.IdUsuario;
 };
 
 const Instructor = () => {
   const [solicitudes, setSolicitudes] = useState([]);
+  const [telefono, setTelefono] = useState('');
+  const [instructor, setInstructor] = useState(null);
 
+  // Obtener datos del instructor y solicitudes
   useEffect(() => {
-    axios.get('http://localhost:3001/api/solicitudapoyo') // Ajusta tu ruta real
-      .then((res) => setSolicitudes(res.data))
-      .catch((err) => console.error(err));
+    const id = obtenerIdInstructor();
+    if (id) {
+      // Datos del instructor
+      axios.get(`http://localhost:3001/api/usuarios/${id}`)
+        .then(res => {
+          setInstructor(res.data);
+          setTelefono(res.data.Telefono || '');
+        })
+        .catch(err => console.error("Error al obtener el instructor:", err));
+
+      // Solicitudes de apoyo
+      axios.get('http://localhost:3001/api/solicitudapoyo')
+        .then((res) => setSolicitudes(res.data))
+        .catch((err) => console.error(err));
+    }
   }, []);
 
-  const manejarCambio = async (solicitud) => {
-  try {
-    const IdInstructor = obtenerIdInstructor(); 
+  // Actualizar número de contacto
+  const actualizarTelefono = () => {
+    if (!instructor) return;
 
-    if (!IdInstructor) {
-      alert("Error: no se pudo obtener el ID del instructor logueado");
+    // Validación del número
+    if (!/^\d{10}$/.test(telefono)) {
+      alert("Número inválido. Debe tener exactamente 10 dígitos.");
       return;
     }
 
-    // Actualiza la solicitud
-   await axios.put(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
-  Estado: solicitud.estado
-});
+   axios.put(`http://localhost:3001/api/usuarios/${instructor.IdUsuario}`, {
 
+      Telefono: telefono
+    })
+      .then(() => {
+        alert("Número actualizado correctamente");
+      })
+      .catch(err => {
+        console.error("Error al actualizar teléfono:", err);
+        alert("Error al actualizar número");
+      });
+  };
 
-    // Registra en el historial
-    await axios.post(`http://localhost:3001/api/historial`, {
-      IdSolicitud: solicitud.IdSolicitud,
-      EstadoNuevo: solicitud.estado,
-      Comentario: solicitud.comentario,
-      IdUsuario: IdInstructor
-    });
+  // Guardar cambios en solicitud
+  const manejarCambio = async (solicitud) => {
+    try {
+      const IdInstructor = obtenerIdInstructor();
+      if (!IdInstructor) {
+        alert("Error: no se pudo obtener el ID del instructor logueado");
+        return;
+      }
 
-    alert('Solicitud actualizada y registrada en historial');
-  } catch (error) {
-    console.error('Error al actualizar y registrar historial', error);
-  }
-};
+      // Actualizar solicitud
+      await axios.put(`http://localhost:3001/api/solicitudapoyo/${solicitud.IdSolicitud}`, {
+        Estado: solicitud.estado
+      });
 
+      // Registrar historial
+      await axios.post(`http://localhost:3001/api/historial`, {
+        IdSolicitud: solicitud.IdSolicitud,
+        EstadoNuevo: solicitud.estado || solicitud.Estado,
+        Comentario: solicitud.comentario || '',
+        IdUsuario: IdInstructor
+      });
+
+      alert('Solicitud actualizada y registrada en historial');
+
+      // Refrescar solicitudes
+      const res = await axios.get('http://localhost:3001/api/solicitudapoyo');
+      setSolicitudes(res.data);
+
+    } catch (error) {
+      console.error('Error al actualizar y registrar historial', error);
+    }
+  };
 
   return (
     <div>
+      <div className="form-contacto">
+        <h3>📞 Mi número de contacto</h3>
+        <input
+          type="text"
+          placeholder="Ingresa tu número"
+          value={telefono}
+          onChange={(e) => setTelefono(e.target.value)}
+        />
+        <button onClick={actualizarTelefono}>Actualizar número</button>
+      </div>
+
       {solicitudes.map((s, index) => (
         <div key={index} className="solicitud">
           <h3>{s.usuario?.Nombre} - {s.TipoAyuda}</h3>
           <p>{s.Descripcion}</p>
 
           <label>Comentario al aprendiz:</label>
-         <textarea
-  value={s.comentario || ''}
-  onChange={(e) =>
-    setSolicitudes((prev) =>
-      prev.map((sol) =>
-        sol.IdSolicitud === s.IdSolicitud
-          ? { ...sol, comentario: e.target.value }
-          : sol
-      )
-    )
-  }
-/>
-
+          <textarea
+            value={s.comentario || ''}
+            onChange={(e) =>
+              setSolicitudes((prev) =>
+                prev.map((sol) =>
+                  sol.IdSolicitud === s.IdSolicitud
+                    ? { ...sol, comentario: e.target.value }
+                    : sol
+                )
+              )
+            }
+          />
 
           <label>Estado:</label>
           <select

@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { GestionEvento } from './GestionEvento';
 
 @Table({ tableName: 'planificacionevento' })
@@ -21,4 +21,7 @@ export class PlanificacionEvento extends Model {
   @ForeignKey(() => GestionEvento)
   @Column({ type: DataType.INTEGER, allowNull: false })
   declare IdGestionE: number;
+
+  @BelongsTo(() => GestionEvento)
+  declare gestionEvento: GestionEvento;
 }

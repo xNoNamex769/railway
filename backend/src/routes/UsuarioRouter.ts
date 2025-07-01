@@ -1,7 +1,7 @@
 // Importación de módulos externos y middlewares
 import { Router } from "express";
 import { body, param } from "express-validator";
-
+import { authorizeAdmin } from "../middleware/authotizeAdmin";
 // Controlador
 import { UsuarioController } from "../controllers/UsuarioController";
 
@@ -37,7 +37,7 @@ UsuarioRouter.get(
   authenticate,
   UsuarioController.usertraer
 );
-
+UsuarioRouter.put('/usuarios/:id', UsuarioController.actualizarTelefono);
 // Obtener usuario por ID
 UsuarioRouter.get(
   "/:id",
@@ -55,6 +55,7 @@ UsuarioRouter.post(
   handleInputErrors,
   UsuarioController.crearUsuario
 );
+
 
 // Actualizar usuario por ID
 UsuarioRouter.put(
@@ -149,6 +150,15 @@ UsuarioRouter.post('/update-password',
   handleInputErrors,
   UsuarioController.updateCurrentPassword
 );
+
+
+UsuarioRouter.put(
+  "/cambiar-rol/:id",
+  authenticate,
+  authorizeAdmin,
+  UsuarioController.cambiarRolUsuario
+);
+
 
 // Exportar el router
 export default UsuarioRouter;

@@ -7,7 +7,7 @@ import AnunciosHome from "../src/pages/Home/AnunciosHome"
 import ProjectsHome from "../src/pages/Home/ProjectsHome"
 import ContactHome from "../src/pages/Home/ContactHome"
 import FooterHome from "../src/pages/Home/FooterHome"
-import SplashCursor from '../src/pages/SplashCursor/SplashCursor'
+
 import "../src/pages/Home/styles/HomeEstilosPrincipales.css"
 
 
@@ -21,7 +21,7 @@ export default function HomePage() {
         <AboutComponent ></AboutComponent>
         <AnunciosHome></AnunciosHome>
         <ProjectsHome></ProjectsHome>
-       <SplashCursor></SplashCursor>
+       
         <ContactHome></ContactHome>
         <FooterHome></FooterHome>
     </>

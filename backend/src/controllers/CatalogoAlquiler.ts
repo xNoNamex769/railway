@@ -1,28 +1,43 @@
 import type { Request, Response } from 'express';
 import { AlquilerElementos } from '../models/AlquilerElementos';
-
+import { Usuario } from '../models/Usuario';
+import { enviarNotificacionGeneral } from '../services/notificaciongeneral';
 export class CatalogoController {
-  static subirElemento = async (req: Request, res: Response) => {
+ static subirElemento = async (req: Request, res: Response) => {
     try {
       const { NombreElemento } = req.body;
       const Imagen = req.file?.filename;
 
       if (!NombreElemento || !Imagen) {
-      res.status(400).json({ error: 'Nombre e imagen son requeridos' });
-      return;
+        res.status(400).json({ error: 'Nombre e imagen son requeridos' });
+        return;
       }
 
-      await AlquilerElementos.create({
-        NombreElemento,
-        Imagen,
-        Observaciones: 'catalogo',
-        FechaSolicitud: new Date(),     // Solo por requisitos de la tabla
-        FechaDevolucion: new Date(),    // Idem
-        RegistradoPor: 'sistema',
-        IdUsuario: null,
-      });
+     const nuevoElemento = await AlquilerElementos.create({
+  NombreElemento,
+  Imagen,
+  Observaciones: 'catalogo',
+  FechaSolicitud: new Date(),
+  FechaDevolucion: new Date(),
+  RegistradoPor: 'sistema',
+  IdUsuario: null,
+});
 
-      res.status(201).json({ mensaje: 'Elemento agregado al catálogo' });
+
+      // 👉 Buscar aprendices (IdRol = 2, por ejemplo)
+      const aprendices = await Usuario.findAll({ where: { IdRol: 2 } });
+      const idsAprendices = aprendices.map(u => u.IdUsuario);
+
+      // 👉 Enviar notificación a aprendices
+      await enviarNotificacionGeneral({
+        titulo: "Nuevo elemento en catálogo",
+  mensaje: `Se ha agregado un nuevo elemento al catálogo: "${nuevoElemento.NombreElemento}"`,
+  tipo: "Catalogo",
+  idUsuarios: idsAprendices,
+imagenUrl: `http://localhost:3001/uploads/${nuevoElemento.Imagen}`,
+  RutaDestino: "alquilerap"
+});
+      res.status(201).json({ mensaje: 'Elemento agregado al catálogo y notificación enviada' });
     } catch (error) {
       console.error('Error al subir elemento:', error);
       res.status(500).json({ error: 'Error interno al subir el elemento' });

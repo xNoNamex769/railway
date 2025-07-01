@@ -28,6 +28,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
     alquiler: false,
     analisis: false,
     documentos: false,
+    temas:false,
   });
 
   const toggleDropdown = () => setMostrarMenu(prev => !prev);
@@ -47,6 +48,15 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
 
   return (
     <aside className={`barradash ${menuAbierto ? "mostrar" : "ocultar"}`}>
+      {document.body.classList.contains("theme-halloween") && (
+  <div className="animaciones-sidebar-halloween">
+    <div className="murcielago uno"></div>
+    <div className="murcielago dos"></div>
+    <div className="murcielago tres"></div>
+    <div className="nube-humo-sidebar"></div>
+  </div>
+)}
+
       {/* Header usuario */}
       <section className="Clogodash">
         <div className="UserHeaderInfo" onClick={toggleDropdown}>
@@ -138,6 +148,10 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("solicitudapoyo")} className="opciondash">
                 <FaChartBar className="iconodash" /> Apoyos
               </button>
+                <button onClick={() => setContenidoActual("resumenia")} className="opciondash">
+                <FaChartBar className="iconodash" /> resumen
+              </button>
+             
             </>
           )}
         </div>
@@ -159,7 +173,36 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           )}
         </div>
 
-        <img src={logo} alt="Logo" />
+        {/* Sección: Documentos */}
+        <div className="grupo-menu">
+          <button className="tituloseccion" onClick={() => toggleSection("gestionusuarios")}>
+            {openSection.gestionusuarios ? <FaChevronDown /> : <FaChevronRight />} GestionUsuarios
+          </button>
+          {openSection.gestionusuarios && (
+            <>
+            
+              <button onClick={() => setContenidoActual("cambiarrol")} className="opciondash">
+                <FaAddressBook className="iconodash" /> Roles
+              </button>
+            </>
+          )}
+        </div>
+{/* Sección: Apariencia o Temas */}
+<div className="grupo-menu">
+  <button className="tituloseccion" onClick={() => toggleSection("temas")}>
+    {openSection.temas ? <FaChevronDown /> : <FaChevronRight />} Apariencia
+  </button>
+  {openSection.temas && (
+    <>
+      <button onClick={() => setContenidoActual("temas")} className="opciondash">
+        <FaAlignJustify className="iconodash" /> Temas
+      </button>
+    </>
+  )}
+</div>
+
+       
+        <img src={logo} alt="Logo"  className="logo-dashboard-general"/>
       </nav>
     </aside>
   );

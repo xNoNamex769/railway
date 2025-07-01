@@ -26,8 +26,8 @@ router.post(
     console.log("File:", req.file);
     next();
   },
-  validateIdActividadYaExiste,
-  validateActividadBody,
+ 
+  
   handleInputErrors,
   ActividadControllers.crearActividad
 );

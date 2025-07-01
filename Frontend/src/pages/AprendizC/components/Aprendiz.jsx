@@ -1,7 +1,7 @@
 // src/components/Aprendiz.jsx
 import React, { useState } from 'react';
 import ModalDetalles from './ModalDetalles'; // Modal para ver detalles
-import certificadoImg from '../img/certificado.webp';
+
 
 
 
@@ -30,10 +30,11 @@ const Aprendiz = ({ aprendiz }) => {
      
       
 
-      <img
-          className="certificado-img"
-          src={certificadoImg} alt="Certificado"
-        />
+     <img
+  className="certificado-img"
+  src="/img/certificado.webp"
+  alt="Certificado"
+/>
 
         <div className="info-text">
           <h3>{aprendiz.nombre}</h3>

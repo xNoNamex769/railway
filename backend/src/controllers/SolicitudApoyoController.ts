@@ -51,15 +51,21 @@ export class SolicitudApoyoController {
 
  static CrearSolicitudApoyo = async (req: Request, res: Response) => {
   try {
-    const solicitudDelApoyo = await SolicitudApoyo.create(req.body);
-    res.status(201).json(solicitudDelApoyo); 
     const { IdUsuario, TipoAyuda, Descripcion, Estado } = req.body;
 
-if (!IdUsuario || !TipoAyuda || !Descripcion || !Estado) {
-  res.status(400).json({ error: "Datos incompletos" });
-  return;
-}
-//  Devolver la solicitud creada
+    if (!IdUsuario || !TipoAyuda || !Descripcion || !Estado) {
+      res.status(400).json({ error: "Datos incompletos" });
+      return;
+    }
+
+    const solicitudDelApoyo = await SolicitudApoyo.create({
+      IdUsuario,
+      TipoAyuda,
+      Descripcion,
+      Estado,
+    });
+
+    res.status(201).json(solicitudDelApoyo); 
   } catch (error) {
     console.error("Error al crear la solicitud:", error);
     res.status(500).json({ error: "Hubo un error al crear la solicitud de apoyo" });
@@ -78,7 +84,8 @@ if (!IdUsuario || !TipoAyuda || !Descripcion || !Estado) {
       }
 
       await solicitudDelApoyo.update(req.body);
-      res.json("Solicitud de apoyo actualizada correctamente");
+res.json(solicitudDelApoyo); // devuelve el objeto actualizado
+
     } catch (error) {
       console.error("Error al actualizar solicitud de apoyo", error);
       res.status(500).json({ error: "Hubo un error al actualizar la solicitud de apoyo" });

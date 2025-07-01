@@ -30,10 +30,10 @@
 }
 .menudash {
   /*SideBar*/
- 
+
   display: flex;
   flex-direction: column;
-  background-color: #eaeceb;
+  background-color: #ffffff;
   
 }
 
@@ -67,22 +67,31 @@
 }
 
 .encabezadodash {
-  /*Navbar*/
-  align-items: center;
-  margin-bottom: 20px;
- 
+  /* Estilo base */
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 84vw;
-  padding: 10px 20px;
-  background-color: #dbdada;
-   background-color:#3366cc;;
-  margin-left: 10px;;
-  position: relative;
-  top: -6mm;
-  right: 55px;
-  
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 14px 30px;
+
+  /* Colores */
+  background: linear-gradient(90deg, #3edb0e, #3edb0e);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+
+  /* Diseño visual */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+
+  /* Eliminar posicionamiento que causa scroll */
+ 
+
+ 
 }
+
 
 .busquedadash {
   /*Navbar*/
@@ -126,7 +135,7 @@
   background-color: #f7f7f7;
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.2);
   color: rgb(87, 86, 86);
-   filter: drop-shadow(1px 5px 5px rgb(14, 233, 87));
+   filter: drop-shadow(1px 5px 1px rgb(20, 235, 56));
    
    margin-left: 10px;
 
@@ -148,7 +157,7 @@
 
 .opciondash:hover {
   
-  background: #22f09a;
+  background: #3edb0e,
   
   
 }
@@ -188,7 +197,7 @@
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  filter: drop-shadow(4px 4px 4px rgb(5, 198, 223));
+  filter: drop-shadow(4px 4px 4px rgb(67, 223, 5));
  
 }
 
@@ -218,11 +227,11 @@
 
 .logodash {
   /*Navbar*/
-  width: 50px;
+  width: 150px;
   height: auto;
   position: relative;
   top: -16px;
-     filter: drop-shadow(1px 10px 10px rgb(4, 241, 241));
+     filter: drop-shadow(1px 10px 10px rgb(4, 241, 44));
      
 }
 
@@ -231,7 +240,7 @@
 }
 
 .menudash-lateral.oculto {
-  background-color: #00C853;
+  background-color: #3edb0e;
   display: none;
 }
 
@@ -300,7 +309,7 @@
   background-color: #dbdada;
   color: white;
   overflow-y: auto; 
- background-color: #e5ebe9;
+ background-color: #ffffff;
   
   
 }
@@ -329,7 +338,9 @@
 .footer-dash {
   /* Para bajarlo */
   margin-top: 200px;  /* sube o baja este valor a tu gusto */
-  width: 1079px;
+  width: 100%;
+max-width: 1079px;
+
   height: 100px;
   /* Si quieres que esté centrado en texto, */
   text-align: center;
@@ -398,7 +409,7 @@ margin-right: 00px;
   top: 50px;
   right: 0;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #f5f0f0;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 10;
@@ -425,7 +436,7 @@ margin-right: 00px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(90deg, #32CD32, #00C853);
+  background: linear-gradient(90deg, #3edb0e, #3edb0e,);
   padding: 10px 15px;
   border-radius: 20px;
   max-width: 230px;
@@ -471,7 +482,7 @@ margin-right: 00px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  background: linear-gradient(90deg, #3edb0e, 0%, #3edb0e, 100%);
   border-radius: 20px;
   padding: 10px 15px;
   margin-bottom: 20px;

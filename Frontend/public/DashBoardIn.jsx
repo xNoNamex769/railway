@@ -19,6 +19,7 @@ import ChatAI from "../src/pages/ChatAI/ChatAI";
 import UserViewIn from "../src/pages/UserView/UserViewIn";
 import ConfigViewIn from "../src/pages/ConfigView/ConfigViewIn";
 import Alquiler from "../src/pages/Alquiler/Alquiler";
+import MisActividades from "../src/pages/Actividades/Instructor/MisActividades";
 import AsistenciasActividad from "../src/pages/Asistencia/Instructor/AsistenciasActividad";
 // import UserView from "../src/pages/UserView/UserView"; // Descomenta si lo necesitas
 
@@ -27,6 +28,7 @@ import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
 import Instructor from "../src/pages/SolicitudApoyo/Instructor";
+
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -75,7 +77,7 @@ export default function DashBoard() {
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "perfil" && <HomeDash />}
         {contenidoActual === "registroactividades" && <RegistroActividades/>}
-
+  {contenidoActual === "misactividades" && <MisActividades/>}
         {contenidoActual === "config" && <ConfigViewIn />}
         {contenidoActual === "alquiler" && <Alquiler />}
         {contenidoActual === "asistenciasactividad" && (

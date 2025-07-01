@@ -38,7 +38,7 @@
     width: 45px;
     height: 45px;
     color: var(--secondary-color-home);
-    filter: invert(58%) sepia(69%) saturate(3949%) hue-rotate(72deg) brightness(96%) contrast(99%);
+    /*filter: invert(58%) sepia(69%) saturate(3949%) hue-rotate(72deg) brightness(96%) contrast(99%);*/
 }
 
 /* Responsive Styles */

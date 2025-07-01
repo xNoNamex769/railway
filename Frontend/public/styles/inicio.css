@@ -50,7 +50,7 @@
 
 .campo-input-inicio:focus {
   outline: none;
-  border-color: #10b981;
+  border-color: #10f01b;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
@@ -82,7 +82,7 @@
   height: 1rem;
   border-radius: 0.25rem;
   border: 1px solid #d1d5db;
-  accent-color: #10b981;
+  accent-color: #2ee416;
   cursor: pointer;
 }
 
@@ -98,20 +98,20 @@
 
 .enlace-recuperar-inicio {
   font-size: 0.875rem;
-  color: #10b981;
+  color: #299cfa;
   text-decoration: none;
   transition: color 0.2s;
   cursor: pointer;
 }
 
 .enlace-recuperar-inicio:hover {
-  color: #059669;
+  color: #13e02f;
   text-decoration: underline;
 }
 
 .boton-inicio-sesion {
   width: 100%;
-  background-color: #10b981;
+  background-color: #10e610;
   color: white;
   font-weight: 500;
   font-size: 1rem;
@@ -124,7 +124,7 @@
 }
 
 .boton-inicio-sesion:hover {
-  background-color: #059669;
+  background-color: #1648f0;
 }
 
 .boton-inicio-sesion:active {

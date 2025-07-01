@@ -85,7 +85,7 @@
 .contenedor-terminos-registro {
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
+  margin-right: 100px;
 }
 
 .checkbox-terminos-registro {

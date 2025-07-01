@@ -68,7 +68,15 @@ export default function InicioSesion() {
       setTipoMensaje("exito");
 
       // Redirigir después de breve espera
-      setTimeout(() => navigate("/dashap"), 1200);
+    setTimeout(() => {
+        if (usuario.IdRol === 1) {
+          navigate("/dash");
+        } else if (usuario.IdRol === 3) {
+          navigate("/dashin");
+        } else {
+          navigate("/dashap"); // aprendices
+        }
+      }, 1200);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       setMensaje("❌ Usuario o contraseña incorrectos");
@@ -76,7 +84,9 @@ export default function InicioSesion() {
     } finally {
       setCargando(false);
     }
-  };
+  }; //  cierre del manejarEnvio
+
+ 
 
   return (
     <form className="formulario-inicio-sesion" onSubmit={manejarEnvio}>

@@ -16,7 +16,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
-import logo from "../img/logo.png";
+import logo from "../../../../../public/img/logodef.png";
 import avatar from "../img/avatar.png";
 import "../DashA/style/MenuLateral.css";
 
@@ -140,8 +140,9 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
         </div>
 
         {/* Logo */}
-        <img src={logo} alt="Logo" />
+       
       </nav>
+       <img src={logo} alt="Logo" className="logo-dashboard-general"/>
     </aside>
   );
 }

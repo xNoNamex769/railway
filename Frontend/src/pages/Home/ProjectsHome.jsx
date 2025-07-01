@@ -3,7 +3,7 @@ import "./styles/ProjectsHome.css"
 import ProjectCardComponent from './HomeComponents/ProjectCardComponent'
 import img1 from "../Home/img/actividades.jpg"
 import img2 from "../Home/img/Comunidad.avif"
-import img3 from "../Home/img/eventos.jpg"
+import img3 from "../../../public/img/image.png"
 let projects = [
   {
     title: "Gestion Eficiente",

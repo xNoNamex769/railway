@@ -1,47 +1,19 @@
-import { Router } from 'express';
-import { NotificacionesController } from '../controllers/NotificacionesController';
-import { handleInputErrors } from '../middleware/validation';
-import {validateIdNotificacion,validateNotificacionBody} from '../middleware/Notificaciones';
-
+import { Router } from "express";
+import { io } from "../socket"
+import { NotificacionController } from "../controllers/NotificacionesController";
 const router = Router();
+router.post("/test-socket", (req, res) => {
+  const { titulo, mensaje, IdUsuario } = req.body;
 
-// Obtener todas las notificaciones
-router.get(
-  '/',
-  NotificacionesController.getNotificacionesAll
-);
-
-// Obtener una notificación por ID
-router.get(
-  '/:IdNotificacion',
-  validateIdNotificacion,
-  handleInputErrors,
-  NotificacionesController.getIdNotificacion
-);
-
-// Crear una nueva notificación
-router.post(
-  '/',
-  validateNotificacionBody,
-  handleInputErrors,
-  NotificacionesController.crearNotificacion
-);
-
-// Actualizar una notificación por ID
-router.put(
-  '/:IdNotificacion',
-  validateIdNotificacion,
-  validateNotificacionBody,
-  handleInputErrors,
-  NotificacionesController.actualizarIdNotificacion
-);
-
-// Eliminar una notificación por ID
-router.delete(
-  '/:IdNotificacion',
-  validateIdNotificacion,
-  handleInputErrors,
-  NotificacionesController.eliminarIdNotificacion
-);
+ io.emit("nuevaNotificacion", {
+  Titulo: titulo || "🔔 Noti de prueba",
+  Mensaje: mensaje || "Esta es una prueba con Socket.IO",
+  IdUsuario: IdUsuario || 6 // puedes poner un default mientras pruebas
+});
+  res.json({ ok: true, mensaje: "📡 Notificación enviada con socket.io" });
+});
+router.post("/", NotificacionController.crear);
+router.get("/:idUsuario", NotificacionController.listarPorUsuario);
+router.put("/confirmar/:id", NotificacionController.confirmar);
 
 export default router;

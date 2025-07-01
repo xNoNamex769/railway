@@ -14,10 +14,11 @@ export class HistorialSolicitudController {
         where: { IdSolicitud: idSolicitud },
         include: [{
           model: Usuario,
-          attributes: ['Nombre', 'Correo'], 
+          attributes: ['Nombre', 'Correo' ,'Telefono'], 
           include: [{
             model: RolUsuario, // esto conecta correctamente
-            attributes: ['NombreRol',] //  aquí está el campo Rol ahora
+            attributes: ['NombreRol',], //  aquí está el campo Rol ahora
+            as:'rol'
           }]
         }],
         order: [['createdAt', 'ASC']]

@@ -46,17 +46,32 @@ export default function DashBoard() {
     navigate("/");
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const IdUsuario = localStorage.getItem("IdUsuario");
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  const IdUsuario = localStorage.getItem("IdUsuario");
 
-    if (!token || !IdUsuario) {
-      alert("⚠️ Debes iniciar sesión primero");
-      navigate("/");
-    } else {
-      setValidando(false);
+  if (!token || !IdUsuario) {
+    alert("⚠️ Debes iniciar sesión primero");
+    navigate("/");
+  } else {
+    // 🟢 Leer ruta pendiente desde notificación si existe
+    const rutaPendiente = localStorage.getItem("rutaDesdeNotificacion");
+    if (rutaPendiente) {
+      setContenidoActual(rutaPendiente);
+      localStorage.removeItem("rutaDesdeNotificacion");
     }
-  }, [navigate]);
+    setValidando(false);
+  }
+}, [navigate]);
+
+useEffect(() => {
+  const temaGuardado = localStorage.getItem("tema-halloween");
+  if (temaGuardado === "true") {
+    document.body.classList.add("theme-halloween");
+  } else {
+    document.body.classList.remove("theme-halloween");
+  }
+}, []);
 
   if (validando) {
     return (

@@ -71,7 +71,7 @@
 }
 
 .opcionesm:hover {
-  background-color: #16a085;
+  background-color: #a03d16;
 }
 
 /* Botones menú */
@@ -89,7 +89,6 @@
 .tituloseccion {
   background: none;
   border: none;
-  color: #1abc9c;
   font-weight: bold;
   font-size: 1rem;
   display: flex;
@@ -100,7 +99,7 @@
 }
 
 .tituloseccion:hover {
-  color: #16a085;
+  color: #3dda16;
 }
 
 .opciondash {
@@ -144,4 +143,10 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.logo-dashboard-general{
+height: 100px;
+
+
 }

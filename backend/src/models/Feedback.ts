@@ -22,10 +22,5 @@ export class Feedback extends Model {
   declare evento: Evento;
 
 
-  @ForeignKey(() => Usuario)
-  @Column({ type: DataType.INTEGER, allowNull: true })
-  declare IdUsuario: number;
-
-  @BelongsTo(() => Usuario)
-  declare usuario: Usuario;
+ 
 }

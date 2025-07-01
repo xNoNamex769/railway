@@ -1,5 +1,19 @@
-import { Table, Column, Model, DataType, HasMany, Default ,AllowNull,ForeignKey,BelongsTo} from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  HasMany,
+  Default,
+  AllowNull,
+  ForeignKey,
+  BelongsTo,
+  HasOne,
+} from 'sequelize-typescript';
+
 import { RolUsuario } from './RolUsuario';
+import { Aprendiz } from './Aprendiz'; // IMPORTANTEeeeeee me olvido: Importa Aprendiz aquí
+
 import { AlquilerElementos } from './AlquilerElementos';
 import { Asistencia } from './Asistencia';
 import { Constancia } from './Constancia';
@@ -7,56 +21,61 @@ import { ConsultaIA } from './ConsultaIA';
 import { RelUsuarioEvento } from './RelUsuarioEvento';
 import { RelUsuarioFeedback } from './RelUsuarioFeedback';
 import { SolicitudApoyo } from './SolicitudApoyo';
-
+import { Actividad } from './Actividad';
 
 @Table({ tableName: 'Usuario' })
 export class Usuario extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
   declare IdUsuario: number;
 
-@AllowNull(false)
-  @Column({ type: DataType.STRING(50) }) 
-  declare IdentificacionUsuario: string;
-    @AllowNull(false)
   @ForeignKey(() => RolUsuario)
-  @Column
+  @Column({ type: DataType.INTEGER, allowNull: false })
   declare IdRol: number;
 
-@AllowNull(false)
-  @Column({ type: DataType.STRING(100)})
+  @AllowNull(false)
+  @Column({ type: DataType.STRING(50) })
+  declare IdentificacionUsuario: string;
+
+  @AllowNull(false)
+  @Column({ type: DataType.STRING(100) })
   declare Nombre: string;
 
-@AllowNull(false)
+  @AllowNull(false)
   @Column({ type: DataType.STRING(100) })
   declare Apellido: string;
 
-@AllowNull(false)
-  @Column({ type: DataType.STRING(255)}) 
+  @AllowNull(false)
+  @Column({ type: DataType.STRING(255) })
   declare Correo: string;
 
-@AllowNull(false)
-  @Column({ type: DataType.STRING(20)})
+  @AllowNull(false)
+  @Column({ type: DataType.STRING(20) })
   declare Telefono: string;
 
-@AllowNull(false)
+  @AllowNull(false)
   @Column({ type: DataType.STRING(255) })
   declare Contrasena: string;
 
-@AllowNull(false)
+  @AllowNull(false)
   @Column({ type: DataType.DATEONLY })
   declare FechaRegistro: Date;
 
-  @Column({ type: DataType. STRING(6),allowNull:true})
+  @Column({ type: DataType.STRING(6), allowNull: true })
   declare token: string | null;
 
-@Default(false)
-  @Column({ type: DataType.BOOLEAN
-})
+  @Default(false)
+  @Column({ type: DataType.BOOLEAN })
   declare confirmed: boolean;
 
-@BelongsTo(() => RolUsuario, { as: 'rol' }) //  importante para usarlo en includes
-declare rol: RolUsuario;
+  //  Asociación correcta con RolUsuario
+  @BelongsTo(() => RolUsuario, { foreignKey: 'IdRol', as: 'rol' })
+  declare rol: RolUsuario;
 
+  // Asociación con Aprendiz directamente desde Usuario
+  @HasOne(() => Aprendiz, { foreignKey: 'IdUsuario' })
+  declare aprendiz?: Aprendiz;
+
+  // Relaciones adicionales
   @HasMany(() => AlquilerElementos)
   declare alquilerElementos: AlquilerElementos[];
 
@@ -69,14 +88,13 @@ declare rol: RolUsuario;
   @HasMany(() => ConsultaIA)
   declare consultasIA: ConsultaIA[];
 
-  @HasMany(() => RelUsuarioEvento)
+  @HasMany(() => RelUsuarioEvento, { foreignKey: 'IdUsuario' })
   declare relUsuarioEventos: RelUsuarioEvento[];
-
 
   @HasMany(() => RelUsuarioFeedback)
   declare relUsuarioFeedbacks: RelUsuarioFeedback[];
+@HasMany(() => Actividad, { foreignKey: 'IdUsuario' })
+declare actividades: Actividad[];
   @HasMany(() => SolicitudApoyo)
-declare solicitudesApoyo: SolicitudApoyo[];
-
-
+  declare solicitudesApoyo: SolicitudApoyo[];
 }

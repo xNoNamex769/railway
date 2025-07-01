@@ -1,0 +1,50 @@
+.cambiar-rol-container {
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.cambiar-rol-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  color: #333;
+  text-align: center;
+}
+
+.usuario-item {
+  background: #f9fafb;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.2s ease;
+}
+
+.usuario-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+
+.usuario-info {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #444;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border 0.2s;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
