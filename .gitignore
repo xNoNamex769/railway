@@ -1,32 +1,26 @@
+# Node modules
 **/node_modules/
-./node_modules/
-node_modules/
-./Frontend/node_modules/
-Frontend/node_modules
-./backend/node_modules/
-backend/node_modules
 
-# archivos de build de frontend (si usa Vite, por ejemplo)
-./Frontend/dist/
-./backend/dist/
+# Builds
+**/dist/
+**/.vite/
+**/.cache/
 
-# archivos temporales de frontend
-./Frontend/.cache/
-./backend/.cache/
+# Archivos de entorno
+**/.env
 
-# archivos de logs
-logs/
+# Archivos subidos por usuarios
+**/uploads/
+!**/uploads/.gitkeep
+
+# Logs
 *.log
+logs/
 
-# archivos de entorno
-backend/.env
-
-# archivos de IDEs y editores
+# Archivos del sistema y del editor
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# archivos de sistema operativo
 .DS_Store
 Thumbs.db
