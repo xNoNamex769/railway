@@ -43,11 +43,24 @@ const ConstanciaSENA = () => {
         const id = decoded.IdUsuario;
 
         const cacheUsuario = localStorage.getItem("cache_usuario");
+
+        // ⚠️ Validación de identidad de usuario en caché
+        if (cacheUsuario) {
+          const usuarioCache = JSON.parse(cacheUsuario);
+          if (usuarioCache.IdUsuario !== id) {
+            localStorage.removeItem("cache_usuario");
+            localStorage.removeItem("cache_asistencias");
+            localStorage.removeItem("cache_constancia");
+          }
+        }
+
+        // Recarga de valores luego de posible limpieza
+        const newCacheUsuario = localStorage.getItem("cache_usuario");
         const cacheAsistencias = localStorage.getItem("cache_asistencias");
         const cacheConstancia = localStorage.getItem("cache_constancia");
 
-        if (cacheUsuario && cacheAsistencias && cacheConstancia) {
-          setDatos(JSON.parse(cacheUsuario));
+        if (newCacheUsuario && cacheAsistencias && cacheConstancia) {
+          setDatos(JSON.parse(newCacheUsuario));
           const asistencias = JSON.parse(cacheAsistencias);
           const total = asistencias
             .filter((a) => a.AsiEstado === "Completa")

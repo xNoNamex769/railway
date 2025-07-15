@@ -24,25 +24,34 @@ useEffect(() => {
 
   const fetchUsuario = async () => {
     try {
-      // Intenta recuperar desde el sessionStorage
-      const usuarioGuardado = sessionStorage.getItem("usuario");
-      if (usuarioGuardado) {
-        setUsuario(JSON.parse(usuarioGuardado));
-        return;
-      }
-
       const token = localStorage.getItem("token");
       if (!token) return;
 
       const payload = JSON.parse(atob(token.split('.')[1]));
       const id = payload.IdUsuario;
 
+      const usuarioGuardado = sessionStorage.getItem("usuario");
+
+      // 🔒 Verificamos si el usuario guardado en sesión es el mismo que el del token
+      if (usuarioGuardado) {
+        const usuarioCache = JSON.parse(usuarioGuardado);
+        if (usuarioCache.IdUsuario === id) {
+          setUsuario(usuarioCache);
+          return;
+        } else {
+          // ⚠ Si no es el mismo, limpiamos la sesión
+          sessionStorage.removeItem("usuario");
+        }
+      }
+
+      // Si no hay usuario en sesión o no coincide, lo pedimos al backend
       const res = await axios.get(`http://localhost:3001/api/usuario/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       setUsuario(res.data);
-      sessionStorage.setItem("usuario", JSON.stringify(res.data)); // Guarda en sesión
+      sessionStorage.setItem("usuario", JSON.stringify(res.data)); // Actualizamos el usuario en sesión
+
     } catch (err) {
       console.error("Error cargando usuario:", err);
     }
