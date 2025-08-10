@@ -6,46 +6,49 @@ import { db } from './config/db';
 import fs from 'fs';
 import path from 'path';
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // 1️⃣ Crear servidor HTTP
 const httpServer = http.createServer(app);
 
-// 2️⃣ Crear instancia de Socket.IO
+// 2️⃣ Crear instancia de Socket.IO con CORS abierto (para desarrollo)
 const io = new SocketIOServer(httpServer, {
   cors: {
     origin: "*",
   },
 });
 
-// 3️⃣ Guardar io dentro de app
+// 3️⃣ Guardar la instancia de io dentro de la app para usarla en otros lados
 app.set("io", io);
 
 async function startServer() {
     try {
-        await db.authenticate(); 
+        // Conectar a la base de datos
+        await db.authenticate();
         console.log(colors.blue.bold('Conexión exitosa a la Base de datos'));
 
+        // Sincronizar modelos y tablas
         await db.sync();
         console.log(colors.blue.bold('Base de datos y modelos sincronizados.'));
-        
+
+        // Crear carpeta uploads si no existe
         const uploadPath = path.join(__dirname, "../uploads");
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath);
             console.log(colors.yellow("📁 Carpeta 'uploads' creada."));
         }
 
-        // 4️⃣ Iniciar servidor HTTP
-        httpServer.listen(PORT, '0.0.0.0', () => {
-            console.log(colors.green.bold(`✅ Servidor escuchando en http://localhost:${PORT}`));
+        // Iniciar servidor HTTP escuchando en el puerto definido
+        httpServer.listen(PORT, () => {
+            console.log(colors.green.bold(`✅ Servidor escuchando en el puerto ${PORT}`));
         });
-
     } catch (error) {
-        console.error('❌ Error al conectar a la base de datos:', error);
+        console.error(colors.red.bold('❌ Error al conectar a la base de datos:'), error);
     }
 }
 
 startServer();
+
 
 
 
