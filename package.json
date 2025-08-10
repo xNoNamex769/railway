@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "multer": "^2.0.1"
+  },
+
+  "scripts": {
+    "start": "npm run build && node dist/index.js"
   }
 }
