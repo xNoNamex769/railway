@@ -42,12 +42,7 @@ async function connectDB() {
       colors.blue.bold("Conexión exitosa a la Base de datos echo por Alex")
     );
 
-    try {
-      const [results, metadata] = await db.query("");
-      console.log("Datos de ejemplo:", results);
-    } catch (error) {
-      console.error("Error al ejecutar la consulta:", error);
-    }
+    
   } catch (error) {
     console.error("Error al conectar a la BD:", error);
     console.log(colors.red.bold("Falló la conexión a la BD"));
