@@ -43,7 +43,7 @@ async function connectDB() {
     );
 
     try {
-      const [results, metadata] = await db.query("SELECT * FROM asistencia");
+      const [results, metadata] = await db.query("");
       console.log("Datos de ejemplo:", results);
     } catch (error) {
       console.error("Error al ejecutar la consulta:", error);
