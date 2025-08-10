@@ -3,13 +3,7 @@ import jwt from "jsonwebtoken";
 import {Usuario} from "../models/Usuario"; // usa `default` si exportaste así
 
 
-declare global {
-  namespace Express {
-    interface Request {
-      usuario?: Usuario;
-    }
-  }
-}
+
 
 interface JwtPayload {
   IdUsuario: number;
